@@ -2,7 +2,7 @@ import { env } from "@/lib/env";
 import type { FaqItem, Product, Recipe } from "@/lib/shopify/types";
 import type { Locale } from "@/lib/i18n";
 
-export const siteName = "Herbet";
+export const siteName = "Herbert's";
 
 export const fallbackProducts: Record<Locale, Product[]> = {
   es: [
@@ -249,13 +249,13 @@ export const siteCopy = {
     announcement: "Envíos en México y atención directa por WhatsApp.",
     hero: {
       eyebrow: "Receta familiar, frasco por frasco",
-      title: "Herbet: sabor brillante, etiqueta limpia y una mesa lista para compartir.",
+      title: "Herbert's: pepinillos gourmet con etiqueta clásica y una mesa lista para compartir.",
       body:
-        "Una tienda Vercel-first para una marca que se siente más botánica y cuidada: lotes pequeños, sabor brillante y un checkout preparado para crecer con Shopify.",
+        "Una tienda Vercel-first para una marca con look clásico y gourmet: frascos artesanales, sabor brillante y un checkout preparado para crecer con Shopify.",
       primaryCta: "Comprar frascos",
       secondaryCta: "Conocer la historia"
     },
-    featuredTitle: "Los esenciales de Herbet",
+    featuredTitle: "Los esenciales de Herbert's",
     storyTitle: "Del recetario familiar a una marca que se antoja",
     storyBody:
       "La propuesta mezcla herencia de cocina, diseño cálido y un catálogo corto para vender mejor: menos ruido, más identidad y más razones para volver.",
@@ -277,13 +277,13 @@ export const siteCopy = {
     announcement: "Shipping across Mexico with direct WhatsApp support.",
     hero: {
       eyebrow: "Family recipe, jar by jar",
-      title: "Herbet: bright pickles, cleaner design, and a table built for sharing.",
+      title: "Herbert's: gourmet pickles with classic labeling and a table built for sharing.",
       body:
-        "A Vercel-first storefront for a more herb-forward, premium pantry brand: small batches, bright flavor, and a Shopify-backed checkout ready to scale.",
-      primaryCta: "Shop Herbet",
+        "A Vercel-first storefront for a classic gourmet pickle brand: small batches, bright flavor, and a Shopify-backed checkout ready to scale.",
+      primaryCta: "Shop Herbert's",
       secondaryCta: "Read the story"
     },
-    featuredTitle: "The Herbet essentials",
+    featuredTitle: "The Herbert's essentials",
     storyTitle: "From family recipe notebook to a brand worth craving",
     storyBody:
       "The concept blends kitchen heritage, warm design, and a tight product catalog so the store can sell with clarity instead of noise.",

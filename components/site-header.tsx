@@ -18,15 +18,15 @@ export function SiteHeader({ locale, announcement, nav }: SiteHeaderProps) {
       </div>
       <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-4 px-6 py-5">
         <Link href={`/${locale}`} className="flex items-center gap-3">
-          <span className="inline-flex h-12 w-12 items-center justify-center rounded-full bg-[var(--brand-olive)] text-xs font-semibold uppercase tracking-[0.22em] text-[var(--brand-cream)]">
-            Hbt
+          <span className="inline-flex h-12 w-12 items-center justify-center rounded-full border border-[var(--brand-brass)]/40 bg-[var(--brand-olive)] text-xs font-semibold uppercase tracking-[0.22em] text-[var(--brand-cream)]">
+            HS
           </span>
           <div>
-            <p className="font-[family-name:var(--font-display)] text-3xl leading-none tracking-[0.02em] text-[var(--brand-olive)]">
-              Herbet
+            <p className="font-[family-name:var(--font-display)] text-3xl leading-none tracking-[0.03em] text-[var(--brand-olive)]">
+              {"HERBERT'S"}
             </p>
             <p className="mt-1 text-xs uppercase tracking-[0.28em] text-[var(--brand-earth)]">
-              pickled pantry
+              pepinillos gourmet
             </p>
           </div>
         </Link>

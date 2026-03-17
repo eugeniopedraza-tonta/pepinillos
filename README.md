@@ -1,6 +1,6 @@
-# Herbet Storefront
+# Herbert's Storefront
 
-Headless bilingual storefront for Herbet, built with Next.js App Router for Vercel and wired to Shopify as the commerce backend.
+Headless bilingual storefront for Herbert's, built with Next.js App Router for Vercel and wired to Shopify as the commerce backend.
 
 ## Stack
 

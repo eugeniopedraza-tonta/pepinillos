@@ -13,7 +13,7 @@ export function SiteFooter({ locale }: { locale: Locale }) {
             Built for storytelling and checkout
           </p>
           <h2 className="mt-4 font-[family-name:var(--font-display)] text-4xl leading-tight">
-            Herbet should feel deliberate, herb-forward, and premium before it ever asks for a sale.
+            Herbert&apos;s should feel classic, gourmet, and trustworthy before it ever asks for a sale.
           </h2>
           <p className="mt-4 max-w-xl text-sm leading-7 text-[#d8d1c4]">
             Shopify handles products and checkout. Next.js and Vercel handle the brand experience.
@@ -53,7 +53,7 @@ export function SiteFooter({ locale }: { locale: Locale }) {
           <Link href={`/${locale}/privacy`}>Privacy</Link>
           <Link href={`/${locale}/terms`}>Terms</Link>
         </div>
-        <p>Herbet · Mexico-first launch</p>
+        <p>Herbert&apos;s · Mexico-first launch</p>
       </div>
     </footer>
   );
