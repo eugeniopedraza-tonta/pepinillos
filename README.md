@@ -1,6 +1,6 @@
-# Pepinillos Storefront
+# Herbet Storefront
 
-Headless bilingual storefront for a family-owned pickles brand, built with Next.js App Router for Vercel and wired to Shopify as the commerce backend.
+Headless bilingual storefront for Herbet, built with Next.js App Router for Vercel and wired to Shopify as the commerce backend.
 
 ## Stack
 
