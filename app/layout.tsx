@@ -4,11 +4,15 @@ import { AnalyticsScripts } from "@/components/analytics-scripts";
 import { CartProvider } from "@/components/cart-provider";
 
 import "./globals.css";
+import { Figtree } from "next/font/google";
+import { cn } from "@/lib/utils";
+
+const figtree = Figtree({subsets:['latin'],variable:'--font-sans'});
 
 export const metadata: Metadata = {
   title: "Herbert's",
   description:
-    "A bilingual Vercel-first storefront for Herbert's, a premium gourmet pickle brand powered by Next.js and Shopify."
+    "Herbert's a Premium Pickle Brand with a focus on quality and flavor."
 };
 
 export default function RootLayout({
@@ -17,7 +21,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" className={cn("font-sans", figtree.variable)}>
       <body>
         <CartProvider>
           {children}
