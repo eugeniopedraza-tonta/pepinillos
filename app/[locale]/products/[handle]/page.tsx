@@ -1,7 +1,6 @@
 import { notFound } from "next/navigation";
 
 import { AddToCartButton } from "@/components/add-to-cart-button";
-import { JarArtwork } from "@/components/jar-artwork";
 import { formatMoney } from "@/lib/data/site";
 import { isLocale, type Locale } from "@/lib/i18n";
 import { getProduct } from "@/lib/shopify";
@@ -22,7 +21,6 @@ export default async function ProductPage({
   return (
     <div className="mx-auto max-w-6xl px-6 py-10">
       <div className="grid gap-8 lg:grid-cols-[0.9fr_1.1fr]">
-        <JarArtwork accent={product.accent} badge={product.badge} />
 
         <section className="rounded-[40px] border border-[#21402d]/10 bg-white/80 p-8 sm:p-10">
           <p className="text-xs uppercase tracking-[0.24em] text-[#7a4e25]">{product.size}</p>
