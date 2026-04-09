@@ -1,10 +1,12 @@
+"use client";
 import Link from "next/link";
+import { motion } from "framer-motion";
 
 import { AddToCartButton } from "@/components/add-to-cart-button";
-import { JarArtwork } from "@/components/jar-artwork";
 import { formatMoney } from "@/lib/data/site";
 import type { Locale } from "@/lib/i18n";
 import type { Product } from "@/lib/shopify/types";
+import Image from "next/image";
 
 export function ProductCard({
   product,
@@ -15,7 +17,20 @@ export function ProductCard({
 }) {
   return (
     <article className="overflow-hidden rounded-[36px] border border-[var(--brand-olive)]/10 bg-white/80 shadow-[0_18px_40px_rgba(45,53,33,0.08)]">
-      <JarArtwork accent={product.accent} badge={product.badge} />
+      <div className="overflow-hidden border-b border-[var(--brand-olive)]/10 bg-[var(--brand-olive)]">
+        <motion.div
+          whileHover={{ scale: 1.1 }}
+          transition={{ duration: 0.5, ease: [0.25, 0, 0, 1] }}
+        >
+          <Image
+            src={"/pepinillos.png"}
+            alt="Pepinillos"
+            width={200}
+            height={100}
+            className="mx-auto h-auto bg-transparent object-cover"
+          />
+        </motion.div>
+      </div>
       <div className="space-y-4 p-6">
         <div className="flex items-center justify-between gap-4">
           <div>

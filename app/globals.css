@@ -7,7 +7,7 @@
 :root {
   --surface: #faf6ec;
   --surface-muted: #ece3cf;
-  --brand-olive: #163726;
+  --brand-olive: #333D0D;
   --brand-sage: #6c7642;
   --brand-moss: #8a8c55;
   --brand-brass: #b89a4a;
@@ -28,24 +28,24 @@
     "Snell Roundhand",
     "Apple Chancery",
     cursive;
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.145 0 0);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.205 0 0);
-  --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.97 0 0);
-  --secondary-foreground: oklch(0.205 0 0);
-  --muted: oklch(0.97 0 0);
-  --muted-foreground: oklch(0.556 0 0);
-  --accent: oklch(0.97 0 0);
-  --accent-foreground: oklch(0.205 0 0);
+  --background: #f2eedf;
+  --foreground: #1f3425;
+  --card: #faf6ec;
+  --card-foreground: #1f3425;
+  --popover: #faf6ec;
+  --popover-foreground: #1f3425;
+  --primary: #333D0D;
+  --primary-foreground: #f5efdf;
+  --secondary: #ece3cf;
+  --secondary-foreground: #1f3425;
+  --muted: #ece3cf;
+  --muted-foreground: #55614f;
+  --accent: #b89a4a;
+  --accent-foreground: #163726;
   --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.922 0 0);
-  --input: oklch(0.922 0 0);
-  --ring: oklch(0.708 0 0);
+  --border: #d8d1bf;
+  --input: #ece3cf;
+  --ring: #b89a4a;
   --chart-1: oklch(0.87 0 0);
   --chart-2: oklch(0.556 0 0);
   --chart-3: oklch(0.439 0 0);

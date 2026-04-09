@@ -29,7 +29,7 @@ export default async function ShopPage({
         </p>
       </section>
 
-      <section className="mt-8 grid gap-6 lg:grid-cols-3">
+      <section className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {products.map((product) => (
           <ProductCard key={product.id} product={product} locale={safeLocale} />
         ))}

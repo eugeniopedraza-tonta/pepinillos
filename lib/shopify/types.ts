@@ -19,6 +19,11 @@ export type Product = {
   badge: string;
   size: string;
   flavorNotes: string[];
+  // Extended product details
+  ingredients?: string[];
+  usage?: string;
+  servingSize?: string;
+  allergens?: string;
 };
 
 export type Recipe = {

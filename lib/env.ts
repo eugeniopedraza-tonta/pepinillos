@@ -6,7 +6,7 @@ export const env = {
     "",
   publicShopifyStoreDomain: process.env.NEXT_PUBLIC_SHOPIFY_STORE_DOMAIN || "",
   shopifyStorefrontToken: process.env.SHOPIFY_STOREFRONT_ACCESS_TOKEN || "",
-  whatsappNumber: process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "528112345678",
+  whatsappNumber: "8126264511",
   instagramUrl:
     process.env.NEXT_PUBLIC_INSTAGRAM_URL || "https://instagram.com/herbertsmx",
   facebookUrl:
