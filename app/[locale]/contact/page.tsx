@@ -50,7 +50,7 @@ export default async function ContactPage({
             Captura interés para lanzamientos y recetas
           </h2>
           <p className="mt-4 text-sm leading-7 text-[#516154]">
-            Este endpoint es ligero por ahora y queda listo para conectarse a Shopify Email, Klaviyo o el proveedor que decidan.
+            Este endpoint es ligero por ahora y queda listo para conectarse a Klaviyo o al proveedor de email que decidan.
           </p>
           <div className="mt-6">
             <NewsletterForm />

@@ -5,8 +5,8 @@ import Image from "next/image";
 
 import { AddToCartButton } from "@/components/add-to-cart-button";
 import { formatMoney } from "@/lib/data/site";
+import type { Product } from "@/lib/catalog/types";
 import type { Locale } from "@/lib/i18n";
-import type { Product } from "@/lib/shopify/types";
 
 export function ProductCard({
   product,
@@ -62,7 +62,6 @@ export function ProductCard({
             title={product.title}
             priceAmount={product.price.amount}
             currencyCode={product.price.currencyCode}
-            variantId={product.variantId}
             size={product.size}
           />
           <Link

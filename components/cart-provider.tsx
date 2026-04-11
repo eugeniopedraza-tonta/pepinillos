@@ -9,7 +9,6 @@ import {
   type ReactNode
 } from "react";
 
-import { env } from "@/lib/env";
 import { buildWhatsAppUrl } from "@/lib/data/site";
 
 type CartItem = {
@@ -18,7 +17,6 @@ type CartItem = {
   title: string;
   priceAmount: string;
   currencyCode: string;
-  variantId?: string;
   quantity: number;
   size: string;
 };
@@ -28,11 +26,11 @@ type CartContextValue = {
   cartOpen: boolean;
   itemCount: number;
   subtotal: number;
-  checkoutUrl: string;
-  canCheckoutWithShopify: boolean;
+  whatsappCheckoutUrl: string;
   addItem: (item: Omit<CartItem, "quantity">) => void;
   removeItem: (id: string) => void;
   updateQuantity: (id: string, quantity: number) => void;
+  clearCart: () => void;
   setCartOpen: (value: boolean) => void;
 };
 
@@ -40,21 +38,11 @@ const CART_KEY = "pepinillos-cart";
 
 const CartContext = createContext<CartContextValue | undefined>(undefined);
 
-function buildCheckoutUrl(items: CartItem[]) {
-  const hasShopifyCart =
-    Boolean(env.publicShopifyStoreDomain) &&
-    items.every((item) => Boolean(item.variantId));
-
-  if (hasShopifyCart) {
-    const cartPath = items
-      .map((item) => `${item.variantId}:${item.quantity}`)
-      .join(",");
-    return `https://${env.publicShopifyStoreDomain}/cart/${cartPath}`;
-  }
-
+function buildWhatsAppCheckoutUrl(items: CartItem[]) {
   const summary = items
-    .map((item) => `- ${item.title} x${item.quantity}`)
+    .map((item) => `- ${item.title} (${item.size}) x${item.quantity}`)
     .join("\n");
+
   return buildWhatsAppUrl(
     `Hola, quiero pedir lo siguiente:\n${summary}\n\n¿Me ayudan con el siguiente paso?`
   );
@@ -96,11 +84,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
       cartOpen,
       itemCount,
       subtotal,
-      checkoutUrl: buildCheckoutUrl(items),
-      canCheckoutWithShopify:
-        Boolean(env.publicShopifyStoreDomain) &&
-        items.length > 0 &&
-        items.every((item) => Boolean(item.variantId)),
+      whatsappCheckoutUrl: buildWhatsAppCheckoutUrl(items),
       addItem: (incoming) => {
         setItems((current) => {
           const match = current.find((item) => item.id === incoming.id);
@@ -114,7 +98,6 @@ export function CartProvider({ children }: { children: ReactNode }) {
 
           return [...current, { ...incoming, quantity: 1 }];
         });
-        setCartOpen(true);
       },
       removeItem: (id) => setItems((current) => current.filter((item) => item.id !== id)),
       updateQuantity: (id, quantity) =>
@@ -123,6 +106,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
             ? current.filter((item) => item.id !== id)
             : current.map((item) => (item.id === id ? { ...item, quantity } : item))
         ),
+      clearCart: () => setItems([]),
       setCartOpen
     };
   }, [cartOpen, items]);

@@ -1,3 +1,4 @@
+"use client";
 import Link from "next/link";
 
 import { Marquee } from "@/components/shadcn-space/animations/marquee";
@@ -6,6 +7,7 @@ import { env } from "@/lib/env";
 import { Separator } from "@/components/ui/separator";
 import Image from "next/image";
 import type { Locale } from "@/lib/i18n";
+import { motion, useReducedMotion } from "framer-motion";
 
 // ─────────────────────────────────────────────────────────────────
 // Add retailer / press / partner logos here.
@@ -13,9 +15,15 @@ import type { Locale } from "@/lib/i18n";
 // w / h → rendered pixel dimensions (adjust per logo)
 // ─────────────────────────────────────────────────────────────────
 const marqueeLogos: { src: string; w: number; h: number }[] = [
+  { src: "vigar.png", w: 150, h: 40 },
+  { src: "vigar.png", w: 150, h: 40 },
+  { src: "vigar.png", w: 150, h: 40 },
+  { src: "vigar.png", w: 150, h: 40 },
+];
+
+const proximamenteLogos: { src: string; w: number; h: number }[] = [
   { src: "cocinapractica.png", w: 200, h: 40 },
   { src: "mode-super.webp", w: 200, h: 60 },
-  { src: "vigar.png", w: 150, h: 40 },
   { src: "super-roma.png", w: 350, h: 80 },
 ];
 
@@ -23,7 +31,7 @@ const footerCopy = {
   es: {
     marqueeLabel: "Disponible en",
     tagline: "Productos Gourmet",
-    headline: "Una receta familiar hecha frasco. Una marca hecha para compartir.",
+    headline: "Una historia familiar hecha frasco. Una marca hecha para compartir.",
     description:
       "Herbert's nace de una cocina real con ingredientes cuidados, lotes pequeños y el sabor de siempre. Cada frasco lleva algo de historia.",
     newsletterKicker: "Novedades y lanzamientos",
@@ -60,7 +68,7 @@ const footerCopy = {
 
 export function SiteFooter({ locale }: { locale: Locale }) {
   const copy = footerCopy[locale];
-
+  const reducedMotion = useReducedMotion();
   return (
     <footer className="mt-24 border-t border-[var(--brand-olive)]/10 bg-[var(--brand-olive)] text-[var(--brand-cream)]">
 
@@ -73,9 +81,31 @@ export function SiteFooter({ locale }: { locale: Locale }) {
             </p>
           </div>
           <Marquee pauseOnHover className="[--duration:20s]">
-            {marqueeLogos.map((logo) => (
+            {marqueeLogos.map((logo, index) => (
               <Image
-                key={logo.src}
+                key={logo.src + index}
+                src={`/${logo.src}`}
+                alt={logo.src.replace(/\.[^.]+$/, "")}
+                width={logo.w}
+                height={logo.h}
+                className="object-contain px-8 opacity-70 transition-opacity hover:opacity-100"
+              />
+            ))}
+          </Marquee>
+        </div>
+      )}
+
+      {marqueeLogos.length > 0 && (
+        <div className="border-b border-white/10 py-5">
+          <div className="mx-auto mb-4 px-6">
+            <p className="flex justify-center gap-2 text-xl font-bold uppercase tracking-[0.26em] text-[var(--brand-cream)]">
+              PRÓXIMAMENTE EN
+            </p>
+          </div>
+          <Marquee pauseOnHover className="[--duration:20s]" reverse>
+            {proximamenteLogos.map((logo, index) => (
+              <Image
+                key={logo.src + index}
                 src={`/${logo.src}`}
                 alt={logo.src.replace(/\.[^.]+$/, "")}
                 width={logo.w}
@@ -91,18 +121,13 @@ export function SiteFooter({ locale }: { locale: Locale }) {
       <div className="mx-auto grid max-w-7xl gap-10 px-6 py-16 lg:grid-cols-[1.2fr_0.8fr]">
         {/* Brand column */}
         <div>
-          <div className="flex items-center gap-3">
-            <span className="inline-flex h-12 w-12 items-center justify-center rounded-full border border-[var(--brand-brass)]/30 bg-white/10 text-xs font-semibold uppercase tracking-[0.2em] text-[var(--brand-brass)]">
-              HS
+          <div className="flex flex-col">
+            <span className="logo-herberts font-[family-name:var(--font-bodoni)] text-5xl leading-none text-center">
+              {"HERBERT'S"}
             </span>
-            <div>
-              <p className="font-[family-name:var(--font-display)] text-2xl leading-none tracking-[0.03em]">
-                {"HERBERT'S"}
-              </p>
-              <p className="mt-1 text-xs uppercase tracking-[0.24em] text-[var(--brand-brass)]">
-                {copy.tagline}
-              </p>
-            </div>
+            <p className="mt-1 text-xs uppercase tracking-[0.28em] text-[var(--brand-brass)] text-center">
+              {copy.tagline}
+            </p>
           </div>
 
           <h2 className="mt-6 font-[family-name:var(--font-display)] text-3xl leading-tight">
@@ -113,18 +138,29 @@ export function SiteFooter({ locale }: { locale: Locale }) {
           </p>
 
           <div className="mt-6 flex flex-wrap gap-3 text-sm font-semibold">
-            <a href={env.instagramUrl} target="_blank" rel="noreferrer"
-              className="rounded-full border border-white/15 px-4 py-2 transition hover:border-white/30 hover:bg-white/5">
+          <motion.div
+            className="flex flex-wrap items-center gap-3"
+            initial={reducedMotion ? false : { opacity: 0, x: -12 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, ease: [0.25, 0, 0, 1], delay: 0.15 }}
+          >
+            <span className="badge-shimmer inline-flex items-center gap-1.5 rounded-full px-4 py-1.5 text-xs font-bold uppercase tracking-[0.2em] text-[var(--brand-olive)]">
+              <a href={env.instagramUrl} target="_blank" rel="noreferrer">
               Instagram
             </a>
-            <a href={env.facebookUrl} target="_blank" rel="noreferrer"
-              className="rounded-full border border-white/15 px-4 py-2 transition hover:border-white/30 hover:bg-white/5">
+            </span>
+            <span className="badge-shimmer inline-flex items-center gap-1.5 rounded-full px-4 py-1.5 text-xs font-bold uppercase tracking-[0.2em] text-[var(--brand-olive)]">
+              <a href={env.facebookUrl} target="_blank" rel="noreferrer">
               Facebook
             </a>
-            <a href={`https://wa.me/${env.whatsappNumber}`} target="_blank" rel="noreferrer"
-              className="rounded-full border border-white/15 px-4 py-2 transition hover:border-white/30 hover:bg-white/5">
+            </span>
+            <span className="badge-shimmer inline-flex items-center gap-1.5 rounded-full px-4 py-1.5 text-xs font-bold uppercase tracking-[0.2em] text-[var(--brand-olive)]">
+            <a href={`https://wa.me/${env.whatsappNumber}`} target="_blank" rel="noreferrer">
               WhatsApp
             </a>
+            </span>
+          </motion.div>
           </div>
         </div>
 
@@ -159,7 +195,7 @@ export function SiteFooter({ locale }: { locale: Locale }) {
         <p>{copy.legal}</p>
       </div>
       <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-3 px-6 py-5 text-xs uppercase tracking-[0.18em] text-[#d5d0c4]">
-        <p className="flex justify-start text-xs text-[#d5d0c4]">© 2026 Herbert's. Todos los derechos reservados.</p>
+        <p className="flex justify-start text-xs text-[#d5d0c4]">© 2026 Herbert&apos;s. Todos los derechos reservados.</p>
       </div>
     </footer>
   );

@@ -1,12 +1,7 @@
 export const env = {
   siteUrl: process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000",
-  shopifyStoreDomain:
-    process.env.SHOPIFY_STORE_DOMAIN ||
-    process.env.NEXT_PUBLIC_SHOPIFY_STORE_DOMAIN ||
-    "",
-  publicShopifyStoreDomain: process.env.NEXT_PUBLIC_SHOPIFY_STORE_DOMAIN || "",
-  shopifyStorefrontToken: process.env.SHOPIFY_STOREFRONT_ACCESS_TOKEN || "",
-  whatsappNumber: "8126264511",
+  stripePublishableKey: process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY || "",
+  whatsappNumber: process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "8126264511",
   instagramUrl:
     process.env.NEXT_PUBLIC_INSTAGRAM_URL || "https://instagram.com/herbertsmx",
   facebookUrl:
@@ -14,7 +9,3 @@ export const env = {
   gaId: process.env.NEXT_PUBLIC_GA_ID || "",
   metaPixelId: process.env.NEXT_PUBLIC_META_PIXEL_ID || ""
 };
-
-export function hasShopifyConfig() {
-  return Boolean(env.shopifyStoreDomain && env.shopifyStorefrontToken);
-}

@@ -6,17 +6,17 @@ import Link from "next/link";
 import { CartButton } from "@/components/cart-button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { cn } from "@/lib/utils";
+import { env } from "@/lib/env";
 import type { Locale } from "@/lib/i18n";
 
 type NavItem = { href: string; label: string; highlight?: boolean };
 
 type SiteHeaderProps = {
   locale: Locale;
-  announcement: string;
   nav: ReadonlyArray<NavItem>;
 };
 
-export function SiteHeader({ locale, announcement, nav }: SiteHeaderProps) {
+export function SiteHeader({ locale, nav }: SiteHeaderProps) {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
 
@@ -40,7 +40,15 @@ export function SiteHeader({ locale, announcement, nav }: SiteHeaderProps) {
     >
       {/* Announcement bar */}
       <div className="bg-[var(--brand-olive)] px-6 py-2 text-center text-xs uppercase tracking-[0.22em] text-[var(--brand-brass)]">
-        {announcement}
+        <p className="mb-2">Envíos en México y atención directa por Whatsapp.</p>
+        <a
+          href={`https://wa.me/52${env.whatsappNumber}`}
+          target="_blank"
+          rel="noreferrer"
+          className="font-bold"
+        >
+          +52 {env.whatsappNumber.replace(/(\d{3})(\d{3})(\d{4})/, "$1 $2 $3")}
+        </a>
       </div>
 
       <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-6 py-5">
@@ -109,14 +117,14 @@ export function SiteHeader({ locale, announcement, nav }: SiteHeaderProps) {
               <Link
                 href={`/${locale}`}
                 onClick={() => setOpen(false)}
-                className="mb-10 flex items-center gap-3"
+                className="mb-10 flex flex-col items-start"
               >
-                <span className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-[var(--brand-olive)] text-xs font-semibold uppercase tracking-[0.2em] text-[var(--brand-cream)]">
-                  HS
-                </span>
-                <span className="font-[family-name:var(--font-bodoni)] text-2xl text-[var(--brand-olive)]">
+                <span className="logo-herberts font-[family-name:var(--font-bodoni)] text-3xl leading-none">
                   {"HERBERT'S"}
                 </span>
+                <p className="mt-1 text-xs uppercase tracking-[0.28em] text-[var(--brand-brass)]">
+                  Productos Gourmet
+                </p>
               </Link>
 
               <nav className="flex flex-col gap-4">

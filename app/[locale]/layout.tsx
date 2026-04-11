@@ -20,11 +20,11 @@ export async function generateMetadata({
   }
 
   return {
-    title: `${siteName} | ${locale === "es" ? "Productos gourmet premium" : "Gourmet products"}`,
+    title: `${siteName} | ${locale === "es" ? "Productos gourmet" : "Gourmet products"}`,
     description:
       locale === "es"
-        ? "Sitio bilingüe en Next.js y Vercel para Herbert's, una marca de productos gourmet con checkout en Shopify."
-        : "Bilingual Next.js and Vercel storefront for Herbert's, a gourmet pickle brand with Shopify checkout."
+        ? "Sitio bilingüe en Next.js y Vercel para Herbert's, una marca de productos gourmet con checkout en Stripe."
+        : "Bilingual Next.js and Vercel storefront for Herbert's, a gourmet pickle brand with Stripe checkout."
   };
 }
 
@@ -45,10 +45,10 @@ export default async function LocaleLayout({
 
   return (
     <div lang={locale} className="min-h-screen bg-white text-[var(--brand-olive)]">
-      <SiteHeader locale={locale} announcement={copy.announcement} nav={copy.nav} />
+      <SiteHeader locale={locale} nav={copy.nav} />
       <main>{children}</main>
       <SiteFooter locale={locale} />
-      <CartDrawer />
+      <CartDrawer locale={locale as Locale} />
       <WhatsAppFloat />
     </div>
   );

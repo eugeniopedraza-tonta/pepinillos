@@ -1,18 +1,20 @@
 # Herbert's Storefront
 
-Headless bilingual storefront for Herbert's, built with Next.js App Router for Vercel and wired to Shopify as the commerce backend.
+Headless bilingual storefront for Herbert's, built with Next.js App Router for Vercel and wired to Stripe Checkout plus a local catalog.
 
 ## Stack
 
 - Next.js App Router
+- Stripe Checkout for one-time payments
+- Prisma with SQLite for Stripe mappings and order persistence
 - Vercel-friendly deployment setup
-- Shopify Storefront API with local fallback catalog
+- Local product catalog in `lib/data/site.ts`
 - Locale-prefixed routing for Spanish and English
-- Client-side cart with Shopify checkout fallback to WhatsApp
+- Client-side cart with Stripe Checkout and WhatsApp fallback
 
 ## Environment
 
-Copy `.env.example` to `.env.local` and fill in the Shopify and marketing values:
+Copy `.env.example` to `.env.local` and fill in the Stripe and marketing values:
 
 ```bash
 cp .env.example .env.local
@@ -20,30 +22,43 @@ cp .env.example .env.local
 
 Key variables:
 
-- `SHOPIFY_STORE_DOMAIN`
-- `SHOPIFY_STOREFRONT_ACCESS_TOKEN`
-- `NEXT_PUBLIC_SHOPIFY_STORE_DOMAIN`
+- `DATABASE_URL`
+- `STRIPE_SECRET_KEY`
+- `STRIPE_PUBLISHABLE_KEY`
+- `STRIPE_WEBHOOK_SECRET`
+- `NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY`
 - `NEXT_PUBLIC_WHATSAPP_NUMBER`
 - `NEXT_PUBLIC_GA_ID`
 - `NEXT_PUBLIC_META_PIXEL_ID`
 
-If Shopify credentials are missing, the storefront still runs using the fallback product catalog in `lib/data/site.ts`.
+Stripe keys come from the Stripe Dashboard. For local SQLite development, use a database URL like `file:./dev.db`.
 
 ## Development
 
 ```bash
-npm run dev
+pnpm dev
 ```
 
 ## Checks
 
 ```bash
-npm run lint
-npm run typecheck
-npm run build:webpack
+pnpm lint
+pnpm typecheck
+pnpm test
+pnpm build:webpack
 ```
 
-`npm run build` uses the default Next.js build path. In the current sandbox, `build:webpack` is the stable verification command.
+`pnpm build` uses the default Next.js build path. In the current sandbox, `build:webpack` is the stable verification command.
+
+## Database and webhooks
+
+```bash
+pnpm db:generate
+pnpm db:migrate
+stripe listen --forward-to localhost:3000/api/stripe/webhooks
+```
+
+Use `STRIPE_SECRET_KEY`, `STRIPE_PUBLISHABLE_KEY`, and `STRIPE_WEBHOOK_SECRET` from your Stripe Dashboard and Stripe CLI session.
 
 ## Routes
 
@@ -63,4 +78,4 @@ npm run build:webpack
 
 - `app/page.tsx` redirects to `/es`.
 - `proxy.ts` enforces locale-prefixed navigation.
-- `app/api/newsletter/route.ts` is a lightweight stub ready to connect to Shopify Email, Klaviyo, or another provider.
+- `app/api/newsletter/route.ts` is a lightweight stub ready to connect to Klaviyo or another provider.

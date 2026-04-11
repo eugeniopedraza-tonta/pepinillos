@@ -65,8 +65,8 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-sans);
-  --font-heading: var(--font-sans);
+  --font-sans: var(--font-sans-body);
+  --font-heading: var(--font-sans-body);
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -180,13 +180,13 @@ h6 {
 .logo-herberts {
   background: linear-gradient(
     90deg,
-    var(--brand-olive)  0%,
-    var(--brand-olive) 38%,
-    var(--brand-brass) 46%,
-    #f0d98a            50%,
-    var(--brand-brass) 54%,
-    var(--brand-olive) 62%,
-    var(--brand-olive) 100%
+    #7a5c22             0%,
+    var(--brand-brass)  18%,
+    #e8c050             42%,
+    #fdf0a0             50%,
+    #e8c050             58%,
+    var(--brand-brass)  82%,
+    #7a5c22             100%
   );
   background-size: 300% 100%;
   -webkit-background-clip: text;
@@ -223,7 +223,7 @@ h6 {
     background: none;
     -webkit-background-clip: unset;
     background-clip: unset;
-    color: var(--brand-olive);
+    color: var(--brand-brass);
   }
 }
 

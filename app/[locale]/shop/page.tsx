@@ -1,9 +1,9 @@
 import { AnimateIn } from "@/components/animate-in";
 import { FeaturedProductCard } from "@/components/featured-product-card";
 import { ProductCard } from "@/components/product-card";
+import { getProducts } from "@/lib/catalog";
 import { siteCopy } from "@/lib/data/site";
 import { isLocale, type Locale } from "@/lib/i18n";
-import { getProducts } from "@/lib/shopify";
 
 export default async function ShopPage({
   params

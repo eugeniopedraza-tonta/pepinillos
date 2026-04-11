@@ -10,7 +10,6 @@ type AddToCartButtonProps = {
   title: string;
   priceAmount: string;
   currencyCode: string;
-  variantId?: string;
   size: string;
   color?: string;
 };
@@ -30,7 +29,6 @@ export function AddToCartButton(props: AddToCartButtonProps) {
       title: props.title,
       priceAmount: props.priceAmount,
       currencyCode: props.currencyCode,
-      variantId: props.variantId,
       size: props.size,
     });
   }

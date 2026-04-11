@@ -3,11 +3,11 @@ import { isLocale, type Locale } from "@/lib/i18n";
 const copy = {
   es: {
     title: "Envíos",
-    body: "La operación inicial está pensada para México. Conviene configurar zonas y tarifas sencillas en Shopify primero, y luego complejizar según demanda real."
+    body: "La operación inicial está pensada para México. En esta primera versión el checkout recopila la dirección de envío en Stripe y la logística se puede mantener simple mientras la demanda real define las siguientes reglas."
   },
   en: {
     title: "Shipping",
-    body: "The first operational setup is designed for Mexico. Keep zones and rates simple in Shopify first, then expand complexity based on real demand."
+    body: "The first operational setup is designed for Mexico. In this version, Checkout collects the shipping address in Stripe and fulfillment can stay simple until real demand justifies more complexity."
   }
 } as const;
 

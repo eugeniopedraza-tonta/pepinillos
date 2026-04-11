@@ -18,8 +18,6 @@ export type Product = {
   accent: string;
   badge: string;
   size: string;
-  flavorNotes: string[];
-  // Extended product details
   ingredients?: string[];
   usage?: string;
   servingSize?: string;
@@ -36,7 +34,7 @@ export type Product = {
     sugars: number;
     addedSugars: number;
     fiber: number;
-    sodium: number; // mg
+    sodium: number;
   };
 };
 

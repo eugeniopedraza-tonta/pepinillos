@@ -3,11 +3,11 @@ import { isLocale, type Locale } from "@/lib/i18n";
 const copy = {
   es: {
     title: "Privacidad",
-    body: "Esta página queda lista para la política formal de privacidad. En producción debe cubrir analítica, pixeles publicitarios, contacto por WhatsApp y procesamiento de pago vía Shopify."
+    body: "Esta página queda lista para la política formal de privacidad. En producción debe cubrir analítica, pixeles publicitarios, contacto por WhatsApp y procesamiento de pago vía Stripe."
   },
   en: {
     title: "Privacy",
-    body: "This page is ready for the formal privacy policy. In production it should cover analytics, ad pixels, WhatsApp contact, and Shopify payment processing."
+    body: "This page is ready for the formal privacy policy. In production it should cover analytics, ad pixels, WhatsApp contact, and Stripe payment processing."
   }
 } as const;
 

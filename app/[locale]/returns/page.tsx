@@ -3,11 +3,11 @@ import { isLocale, type Locale } from "@/lib/i18n";
 const copy = {
   es: {
     title: "Devoluciones",
-    body: "Para un producto alimenticio conviene definir desde Shopify una política clara sobre producto dañado, errores de envío y tiempos máximos de reporte."
+    body: "Para un producto alimenticio conviene definir una política clara sobre producto dañado, errores de envío y tiempos máximos de reporte antes de escalar operación."
   },
   en: {
     title: "Returns",
-    body: "For a food product, define a clear Shopify policy around damaged goods, shipping errors, and claim windows before launch."
+    body: "For a food product, define a clear policy around damaged goods, shipping errors, and claim windows before scaling the operation."
   }
 } as const;
 
