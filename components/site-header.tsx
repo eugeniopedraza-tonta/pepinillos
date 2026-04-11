@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 
 import { CartButton } from "@/components/cart-button";
-import { LocaleSwitcher } from "@/components/locale-switcher";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { cn } from "@/lib/utils";
 import type { Locale } from "@/lib/i18n";
@@ -28,15 +27,15 @@ export function SiteHeader({ locale, announcement, nav }: SiteHeaderProps) {
   }, []);
 
   const shopHref = `/${locale}/shop`;
-  const ctaLabel = locale === "es" ? "Comprar ahora" : "Shop now";
+  const ctaLabel = "Comprar ahora";
 
   return (
     <header
       className={cn(
         "sticky top-0 z-40 transition-all duration-300",
         scrolled
-          ? "border-b border-[var(--brand-olive)]/10 bg-[color:var(--brand-cream)]/90 shadow-sm backdrop-blur-xl"
-          : "bg-[color:var(--brand-cream)]/85 backdrop-blur-xl"
+          ? "border-b border-[var(--brand-olive)]/10 bg-white/90 shadow-sm backdrop-blur-xl"
+          : "bg-white/85 backdrop-blur-xl"
       )}
     >
       {/* Announcement bar */}
@@ -55,7 +54,7 @@ export function SiteHeader({ locale, announcement, nav }: SiteHeaderProps) {
               {"HERBERT'S"}
             </p>
             <p className="mt-1 text-xs uppercase tracking-[0.28em] text-[var(--brand-earth)]">
-              pepinillos gourmet
+              Productos Gourmet
             </p>
           </div>
         </Link>
@@ -86,9 +85,6 @@ export function SiteHeader({ locale, announcement, nav }: SiteHeaderProps) {
 
         {/* Right actions */}
         <div className="flex items-center gap-3">
-          <div className="hidden lg:block">
-            <LocaleSwitcher locale={locale} />
-          </div>
           <CartButton />
 
           {/* Hamburger — mobile only */}
@@ -111,7 +107,7 @@ export function SiteHeader({ locale, announcement, nav }: SiteHeaderProps) {
 
             <SheetContent
               side="right"
-              className="w-72 border-l border-[var(--brand-olive)]/10 bg-[var(--brand-cream)] px-8 pt-12"
+              className="w-72 border-l border-[var(--brand-olive)]/10 bg-white px-8 pt-12"
             >
               <Link
                 href={`/${locale}`}
@@ -153,9 +149,6 @@ export function SiteHeader({ locale, announcement, nav }: SiteHeaderProps) {
                   {ctaLabel}
                 </Link>
 
-                <div className="mt-2">
-                  <LocaleSwitcher locale={locale} />
-                </div>
               </nav>
             </SheetContent>
           </Sheet>

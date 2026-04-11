@@ -12,6 +12,21 @@ const PLACEHOLDER_USAGE_EN = "Perfect for topping and enhancing burgers, hot dog
 const PLACEHOLDER_SERVING_ES = "100 ml";
 const PLACEHOLDER_SERVING_EN = "100 ml";
 
+const NUTRITION_FACTS = {
+  servingSize: "100 ml",
+  energyKcalPerServing: 36,
+  energyKcalPerPackage: 170,
+  protein: 0.6,
+  totalFat: 0.1,
+  saturatedFat: 0.0,
+  transFat: 0,
+  carbohydrates: 8.2,
+  sugars: 7.2,
+  addedSugars: 6.8,
+  fiber: 1.7,
+  sodium: 34,
+};
+
 export const fallbackProducts: Record<Locale, Product[]> = {
   es: [
     {
@@ -20,7 +35,7 @@ export const fallbackProducts: Record<Locale, Product[]> = {
       title: "Pepinillos Dulces",
       description:
         "El inconfundible sabor de Herbert's, elaborado con el corazón del pepino, cuidadosamente seleccionado y equilibrado con especias y un toque dulce que lo hace simplemente irresistible.",
-      price: { amount: "220.00", currencyCode: "MXN" },
+      price: { amount: "250.00", currencyCode: "MXN" },
       tags: ["Dulce", "Más vendido"],
       accent: "from-[#4a5e2f] to-[#b89d5a]",
       badge: "Más vendido",
@@ -31,6 +46,7 @@ export const fallbackProducts: Record<Locale, Product[]> = {
       usage: PLACEHOLDER_USAGE_ES,
       servingSize: PLACEHOLDER_SERVING_ES,
       allergens: "",
+      nutritionFacts: NUTRITION_FACTS,
     },
     {
       id: "relish-pepino-original",
@@ -38,17 +54,18 @@ export const fallbackProducts: Record<Locale, Product[]> = {
       title: "Relish Pepino Original",
       description:
         "El clásico relish de pepino Herbert's: finamente picado, con el balance perfecto entre dulce y ácido para elevar cualquier platillo.",
-      price: { amount: "220.00", currencyCode: "MXN" },
+      price: { amount: "200.00", currencyCode: "MXN" },
       tags: ["Clásico", "Relish"],
       accent: "from-[#3f6040] to-[#c5b06d]",
       badge: "Clásico",
-      size: "473 ml (16 oz)",
+      size: "277 ml (9.38 oz)",
       flavorNotes: ["Dulce", "Ácido", "Fresco"],
       variantId: "",
       ingredients: PLACEHOLDER_INGREDIENTS_ES,
       usage: PLACEHOLDER_USAGE_ES,
       servingSize: PLACEHOLDER_SERVING_ES,
       allergens: "",
+      nutritionFacts: NUTRITION_FACTS,
     },
     {
       id: "relish-pepino-jalapeno",
@@ -56,17 +73,18 @@ export const fallbackProducts: Record<Locale, Product[]> = {
       title: "Relish Pepino con Jalapeño",
       description:
         "La combinación perfecta del pepino con el toque picante del jalapeño. Para quienes buscan un poco más de carácter en cada bocado.",
-      price: { amount: "220.00", currencyCode: "MXN" },
+      price: { amount: "200.00", currencyCode: "MXN" },
       tags: ["Picante", "Relish"],
       accent: "from-[#5a3a20] to-[#b85a3a]",
       badge: "Picante",
-      size: "473 ml (16 oz)",
+      size: "277 ml (9.38 oz)",
       flavorNotes: ["Picante", "Fresco", "Especiado"],
       variantId: "",
       ingredients: PLACEHOLDER_INGREDIENTS_ES,
       usage: PLACEHOLDER_USAGE_ES,
       servingSize: PLACEHOLDER_SERVING_ES,
       allergens: "",
+      nutritionFacts: NUTRITION_FACTS,
     },
     {
       id: "relish-jalapeno",
@@ -74,17 +92,18 @@ export const fallbackProducts: Record<Locale, Product[]> = {
       title: "Relish Jalapeño",
       description:
         "Intenso, picante y lleno de sabor. El relish de jalapeño puro para los que no le tienen miedo al calor.",
-      price: { amount: "220.00", currencyCode: "MXN" },
+      price: { amount: "200.00", currencyCode: "MXN" },
       tags: ["Muy picante", "Relish"],
       accent: "from-[#6b2a1a] to-[#c4612a]",
       badge: "Muy picante",
-      size: "473 ml (16 oz)",
+      size: "277 ml (9.38 oz)",
       flavorNotes: ["Muy picante", "Ahumado", "Intenso"],
       variantId: "",
       ingredients: PLACEHOLDER_INGREDIENTS_ES,
       usage: PLACEHOLDER_USAGE_ES,
       servingSize: PLACEHOLDER_SERVING_ES,
       allergens: "",
+      nutritionFacts: NUTRITION_FACTS,
     },
     {
       id: "relish-cebolla",
@@ -92,17 +111,18 @@ export const fallbackProducts: Record<Locale, Product[]> = {
       title: "Relish Cebolla",
       description:
         "Suave, dulce y con profundidad. El relish de cebolla Herbert's transforma cualquier platillo sencillo en algo memorable.",
-      price: { amount: "220.00", currencyCode: "MXN" },
+      price: { amount: "200.00", currencyCode: "MXN" },
       tags: ["Suave", "Relish"],
       accent: "from-[#5a3f6b] to-[#b89d5a]",
       badge: "Suave",
-      size: "473 ml (16 oz)",
+      size: "277 ml (9.38 oz)",
       flavorNotes: ["Dulce", "Suave", "Aromático"],
       variantId: "",
       ingredients: PLACEHOLDER_INGREDIENTS_ES,
       usage: PLACEHOLDER_USAGE_ES,
       servingSize: PLACEHOLDER_SERVING_ES,
       allergens: "",
+      nutritionFacts: NUTRITION_FACTS,
     },
   ],
   en: [
@@ -123,6 +143,7 @@ export const fallbackProducts: Record<Locale, Product[]> = {
       usage: PLACEHOLDER_USAGE_EN,
       servingSize: PLACEHOLDER_SERVING_EN,
       allergens: "",
+      nutritionFacts: NUTRITION_FACTS,
     },
     {
       id: "relish-pepino-original",
@@ -141,6 +162,7 @@ export const fallbackProducts: Record<Locale, Product[]> = {
       usage: PLACEHOLDER_USAGE_EN,
       servingSize: PLACEHOLDER_SERVING_EN,
       allergens: "",
+      nutritionFacts: NUTRITION_FACTS,
     },
     {
       id: "relish-pepino-jalapeno",
@@ -159,6 +181,7 @@ export const fallbackProducts: Record<Locale, Product[]> = {
       usage: PLACEHOLDER_USAGE_EN,
       servingSize: PLACEHOLDER_SERVING_EN,
       allergens: "",
+      nutritionFacts: NUTRITION_FACTS,
     },
     {
       id: "relish-jalapeno",
@@ -177,6 +200,7 @@ export const fallbackProducts: Record<Locale, Product[]> = {
       usage: PLACEHOLDER_USAGE_EN,
       servingSize: PLACEHOLDER_SERVING_EN,
       allergens: "",
+      nutritionFacts: NUTRITION_FACTS,
     },
     {
       id: "relish-cebolla",
@@ -195,6 +219,7 @@ export const fallbackProducts: Record<Locale, Product[]> = {
       usage: PLACEHOLDER_USAGE_EN,
       servingSize: PLACEHOLDER_SERVING_EN,
       allergens: "",
+      nutritionFacts: NUTRITION_FACTS,
     },
   ]
 };
@@ -344,15 +369,15 @@ export const siteCopy = {
   es: {
     localeLabel: "ES / EN",
     nav: [
+      { href: "#historia", label: "Nuestra Historia" },
       { href: "/shop", label: "Productos", highlight: true },
       { href: "/recipes", label: "Recetas" },
       { href: "/contact", label: "Contacto" },
-      { href: "#historia", label: "Nuestra Historia" },
     ],
     announcement: "Envíos en México y atención directa por WhatsApp.",
     hero: {
       eyebrow: "Receta familiar, frasco por frasco",
-      title: "Herbert's: pepinillos gourmet con etiqueta clásica y una mesa lista para compartir.",
+      title: "Herbert's: Productos Gourmet con etiqueta clásica y una mesa lista para compartir.",
       body:
         "Una tienda Vercel-first para una marca con look clásico y gourmet: frascos artesanales, sabor brillante y un checkout preparado para crecer con Shopify.",
       primaryCta: "Comprar frascos",

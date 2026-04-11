@@ -22,7 +22,7 @@ const marqueeLogos: { src: string; w: number; h: number }[] = [
 const footerCopy = {
   es: {
     marqueeLabel: "Disponible en",
-    tagline: "pepinillos gourmet",
+    tagline: "Productos Gourmet",
     headline: "Una receta familiar hecha frasco. Una marca hecha para compartir.",
     description:
       "Herbert's nace de una cocina real con ingredientes cuidados, lotes pequeños y el sabor de siempre. Cada frasco lleva algo de historia.",
@@ -40,7 +40,7 @@ const footerCopy = {
   },
   en: {
     marqueeLabel: "Available at",
-    tagline: "gourmet pickles",
+    tagline: "Gourmet Products",
     headline: "A family recipe made jar by jar. A brand built for sharing.",
     description:
       "Herbert's comes from a real kitchen — careful ingredients, small batches, and a flavor that doesn't need to be invented. Every jar carries a piece of the story.",

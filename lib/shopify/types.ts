@@ -24,6 +24,20 @@ export type Product = {
   usage?: string;
   servingSize?: string;
   allergens?: string;
+  nutritionFacts?: {
+    servingSize: string;
+    energyKcalPerServing: number;
+    energyKcalPerPackage: number;
+    protein: number;
+    totalFat: number;
+    saturatedFat: number;
+    transFat: number;
+    carbohydrates: number;
+    sugars: number;
+    addedSugars: number;
+    fiber: number;
+    sodium: number; // mg
+  };
 };
 
 export type Recipe = {

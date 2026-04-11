@@ -44,7 +44,7 @@ export default async function LocaleLayout({
   const copy = siteCopy[locale as Locale];
 
   return (
-    <div lang={locale} className="min-h-screen bg-[radial-gradient(circle_at_top,_rgba(183,154,87,0.28),_transparent_40%),linear-gradient(180deg,_#f4efe2_0%,_#efe7d7_48%,_#eadfcb_100%)] text-[var(--brand-olive)]">
+    <div lang={locale} className="min-h-screen bg-white text-[var(--brand-olive)]">
       <SiteHeader locale={locale} announcement={copy.announcement} nav={copy.nav} />
       <main>{children}</main>
       <SiteFooter locale={locale} />

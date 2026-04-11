@@ -8,7 +8,6 @@ import {
   buildWhatsAppUrl,
   recipes,
   siteCopy,
-  storyCards,
   testimonials
 } from "@/lib/data/site";
 import { isLocale, type Locale } from "@/lib/i18n";
@@ -27,26 +26,7 @@ export default async function HomePage({
   return (
     <div className="mx-auto max-w-7xl px-6 py-10">
       {/* Hero */}
-      <HeroSection
-        locale={safeLocale}
-        eyebrow={copy.hero.eyebrow}
-        title={copy.hero.title}
-        body={copy.hero.body}
-        primaryCta={copy.hero.primaryCta}
-        secondaryCta={copy.hero.secondaryCta}
-        storyCards={storyCards[safeLocale].map((card) => (
-          <article
-            key={card.title}
-            className="rounded-[34px] border border-[var(--brand-olive)]/10 bg-white/80 p-6 shadow-[0_14px_35px_rgba(45,53,33,0.08)]"
-          >
-            <p className="text-xs uppercase tracking-[0.24em] text-[var(--brand-earth)]">{card.kicker}</p>
-            <h2 className="mt-3 font-[family-name:var(--font-display)] text-3xl text-[var(--brand-olive)]">
-              {card.title}
-            </h2>
-            <p className="mt-3 text-sm leading-7 text-[var(--brand-copy-muted)]">{card.body}</p>
-          </article>
-        ))}
-      />
+      <HeroSection locale={safeLocale} />
 
       {/* Featured products */}
       <AnimateIn className="mt-20">
@@ -95,7 +75,7 @@ export default async function HomePage({
           {recipes[safeLocale].map((recipe) => (
             <article
               key={recipe.slug}
-              className="rounded-[34px] bg-white/80 p-6 shadow-[0_14px_35px_rgba(33,64,45,0.08)]"
+              className="rounded-[34px] bg-[var(--surface)] p-6 shadow-[0_14px_35px_rgba(33,64,45,0.08)]"
             >
               <p className="text-xs uppercase tracking-[0.24em] text-[var(--brand-earth)]">
                 {safeLocale === "es" ? "Uso en mesa" : "Serving idea"}
@@ -114,21 +94,6 @@ export default async function HomePage({
           ))}
         </AnimateIn>
       </div>
-
-      {/* Nuestra Historia */}
-      <section id="historia" className="mt-20 scroll-mt-28">
-        <AnimateIn>
-          <div className="mb-8">
-            <p className="text-xs uppercase tracking-[0.26em] text-[var(--brand-earth)]">
-              {safeLocale === "es" ? "Nuestra historia" : "Our story"}
-            </p>
-            <h2 className="mt-3 font-[family-name:var(--font-display)] text-4xl text-[var(--brand-olive)]">
-              {safeLocale === "es" ? "Una historia que cruzó continentes" : "A story that crossed continents"}
-            </h2>
-          </div>
-        </AnimateIn>
-        <AboutBento locale={safeLocale} />
-      </section>
 
       {/* Social + Testimonials */}
       <AnimateIn className="mt-20 grid gap-6 lg:grid-cols-[0.95fr_1.05fr]">
@@ -162,7 +127,7 @@ export default async function HomePage({
           {testimonials[safeLocale].map((testimonial) => (
             <blockquote
               key={testimonial.author}
-              className="rounded-[32px] border border-[var(--brand-olive)]/10 bg-white/80 p-6"
+              className="rounded-[32px] border border-[var(--brand-olive)]/10 bg-[var(--surface-muted)] p-6"
             >
               <p className="font-[family-name:var(--font-display)] text-3xl leading-tight text-[var(--brand-olive)]">
                 &ldquo;{testimonial.quote}&rdquo;
