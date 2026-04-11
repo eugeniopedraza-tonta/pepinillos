@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 
 import { AnalyticsScripts } from "@/components/analytics-scripts";
+import { Analytics } from "@vercel/analytics/next"
 import { CartProvider } from "@/components/cart-provider";
 import { cn } from "@/lib/utils";
 
@@ -29,6 +30,7 @@ export default function RootLayout({
     <html lang="en" className={cn("font-sans", bauerBodoni.variable)}>
       <body>
         <CartProvider>
+          <Analytics />
           {children}
           <AnalyticsScripts />
         </CartProvider>
