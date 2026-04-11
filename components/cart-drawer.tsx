@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState, useTransition } from "react";
+import { useMemo, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 
 import { useCart } from "@/components/cart-provider";
@@ -9,8 +9,7 @@ import type { Locale } from "@/lib/i18n";
 export function CartDrawer({ locale }: { locale: Locale }) {
   const { items, cartOpen, setCartOpen, removeItem, updateQuantity, subtotal, whatsappCheckoutUrl } =
     useCart();
-  const [checkoutError, setCheckoutError] = useState<string | null>(null);
-  const [isPending, startTransition] = useTransition();
+  const [checkoutError] = useState<string | null>(null);
   const reduced = useReducedMotion();
 
   const copy =
@@ -50,41 +49,6 @@ export function CartDrawer({ locale }: { locale: Locale }) {
       }).format(subtotal),
     [items, locale, subtotal]
   );
-
-  function handleStripeCheckout() {
-    if (items.length === 0 || isPending) {
-      return;
-    }
-
-    setCheckoutError(null);
-
-    startTransition(async () => {
-      try {
-        const response = await fetch("/api/checkout/sessions", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify({
-            items: items.map((item) => ({
-              productId: item.id,
-              quantity: item.quantity
-            })),
-            locale
-          })
-        });
-        const payload = (await response.json()) as { error?: string; url?: string };
-
-        if (!response.ok || !payload.url) {
-          throw new Error(payload.error || copy.error);
-        }
-
-        window.location.assign(payload.url);
-      } catch (error) {
-        setCheckoutError(error instanceof Error ? error.message : copy.error);
-      }
-    });
-  }
 
   return (
     <div

@@ -90,7 +90,7 @@ export default async function CheckoutSuccessPage({
               <p className="text-sm font-semibold text-[var(--brand-olive)]">{orderTotal}</p>
             </div>
             <div className="mt-4 space-y-3">
-              {result.order.items.map((item) => (
+              {result.order.items.map((item: any) => (
                 <div
                   key={item.id}
                   className="flex items-center justify-between gap-4 rounded-[20px] bg-white px-4 py-3"

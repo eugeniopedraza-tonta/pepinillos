@@ -246,14 +246,6 @@ const HeaderBadge = () => (
   </div>
 );
 
-const HeaderQuote = () => (
-  <div className="flex h-full w-full flex-1 items-center overflow-hidden rounded-xl bg-[var(--brand-olive)] px-6">
-    <span className="font-['Big_Caslon','Baskerville','Palatino_Linotype',serif] text-6xl text-[var(--brand-brass)]/30 select-none">
-      &ldquo;
-    </span>
-  </div>
-);
-
 // ── Text helpers (override neutral colors) ────────────────────
 
 function Label({ children }: { children: React.ReactNode }) {
