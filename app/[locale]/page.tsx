@@ -3,6 +3,7 @@ import Link from "next/link";
 import { AboutBento } from "@/components/about-bento";
 import { AnimateIn } from "@/components/animate-in";
 import { HeroSection } from "@/components/hero-section";
+import { FeaturedProductCard } from "@/components/featured-product-card";
 import { ProductCard } from "@/components/product-card";
 import {
   buildWhatsAppUrl,
@@ -35,7 +36,7 @@ export default async function HomePage({
             <p className="text-xs uppercase tracking-[0.24em] text-[var(--brand-earth)]">
               {safeLocale === "es" ? "Productos destacados" : "Featured products"}
             </p>
-            <h2 className="mt-3 font-[family-name:var(--font-display)] text-4xl text-[var(--brand-olive)]">
+            <h2 className="mt-3 font-[family-name:var(--font-display)] text-4xl font-bold text-[var(--brand-olive)]">
               {copy.featuredTitle}
             </h2>
           </div>
@@ -44,9 +45,13 @@ export default async function HomePage({
           </Link>
         </div>
         <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {products.map((product) => (
-            <ProductCard key={product.id} product={product} locale={safeLocale} />
-          ))}
+          {products.map((product, i) =>
+            i === 0 ? (
+              <FeaturedProductCard key={product.id} product={product} locale={safeLocale} />
+            ) : (
+              <ProductCard key={product.id} product={product} locale={safeLocale} index={i} />
+            )
+          )}
         </div>
       </AnimateIn>
 

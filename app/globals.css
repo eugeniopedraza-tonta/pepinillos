@@ -170,6 +170,63 @@ h6 {
   --sidebar-ring: oklch(0.556 0 0);
 }
 
+/* ─── Herbert's logo shimmer ─────────────────────────── */
+
+@keyframes logo-shimmer {
+  from { background-position: 100% center; }
+  to   { background-position: 0% center; }
+}
+
+.logo-herberts {
+  background: linear-gradient(
+    90deg,
+    var(--brand-olive)  0%,
+    var(--brand-olive) 38%,
+    var(--brand-brass) 46%,
+    #f0d98a            50%,
+    var(--brand-brass) 54%,
+    var(--brand-olive) 62%,
+    var(--brand-olive) 100%
+  );
+  background-size: 300% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: logo-shimmer 10s linear infinite;
+}
+
+.badge-shimmer {
+  background: linear-gradient(
+    90deg,
+    var(--brand-brass)  0%,
+    var(--brand-brass) 36%,
+    #e8c55a            44%,
+    #fff5b0            50%,
+    #e8c55a            56%,
+    var(--brand-brass) 64%,
+    var(--brand-brass) 100%
+  );
+  background-size: 300% 100%;
+  animation: logo-shimmer 10s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .badge-shimmer {
+    animation: none;
+    background: var(--brand-brass);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .logo-herberts {
+    animation: none;
+    background: none;
+    -webkit-background-clip: unset;
+    background-clip: unset;
+    color: var(--brand-olive);
+  }
+}
+
 @layer base {
   * {
     @apply border-border outline-ring/50;

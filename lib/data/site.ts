@@ -89,7 +89,7 @@ export const fallbackProducts: Record<Locale, Product[]> = {
     {
       id: "relish-jalapeno",
       handle: "relish-jalapeno",
-      title: "Relish Jalapeño",
+      title: "Relish de Jalapeño",
       description:
         "Intenso, picante y lleno de sabor. El relish de jalapeño puro para los que no le tienen miedo al calor.",
       price: { amount: "200.00", currencyCode: "MXN" },
@@ -108,7 +108,7 @@ export const fallbackProducts: Record<Locale, Product[]> = {
     {
       id: "relish-cebolla",
       handle: "relish-cebolla",
-      title: "Relish Cebolla",
+      title: "Relish de Cebolla",
       description:
         "Suave, dulce y con profundidad. El relish de cebolla Herbert's transforma cualquier platillo sencillo en algo memorable.",
       price: { amount: "200.00", currencyCode: "MXN" },

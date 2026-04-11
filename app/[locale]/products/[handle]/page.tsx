@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 
 import { AddToCartButton } from "@/components/add-to-cart-button";
+import { AnimateIn } from "@/components/animate-in";
 import { formatMoney } from "@/lib/data/site";
 import { isLocale, type Locale } from "@/lib/i18n";
 import { getProduct } from "@/lib/shopify";
@@ -22,6 +23,7 @@ export default async function ProductPage({
     <div className="mx-auto max-w-6xl px-6 py-10">
       <div className="grid gap-8 lg:grid-cols-[0.9fr_1.1fr]">
 
+        <AnimateIn>
         <section className="rounded-[40px] border border-[#21402d]/10 bg-[var(--surface)] p-8 sm:p-10">
           <p className="text-xs uppercase tracking-[0.24em] text-[#7a4e25]">{product.size}</p>
           <h1 className="mt-4 font-[family-name:var(--font-display)] text-5xl leading-tight text-[#21402d]">
@@ -119,6 +121,7 @@ export default async function ProductPage({
             </p>
           </div>
         </section>
+        </AnimateIn>
       </div>
     </div>
   );

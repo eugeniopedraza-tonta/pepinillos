@@ -46,14 +46,11 @@ export function SiteHeader({ locale, announcement, nav }: SiteHeaderProps) {
       <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-6 py-5">
         {/* Logo */}
         <Link href={`/${locale}`} className="flex shrink-0 items-center gap-3">
-          <span className="inline-flex h-12 w-12 items-center justify-center rounded-full border border-[var(--brand-brass)]/40 bg-[var(--brand-olive)] text-xs font-semibold uppercase tracking-[0.22em] text-[var(--brand-cream)]">
-            HS
-          </span>
-          <div>
-            <p className="font-[family-name:var(--font-display)] text-3xl leading-none tracking-[0.03em] text-[var(--brand-olive)]">
+          <div className="flex flex-col items-center">
+            <span className="logo-herberts font-[family-name:var(--font-bodoni)] text-5xl leading-none">
               {"HERBERT'S"}
-            </p>
-            <p className="mt-1 text-xs uppercase tracking-[0.28em] text-[var(--brand-earth)]">
+            </span>
+            <p className="mt-1 text-xs uppercase tracking-[0.28em] text-[var(--brand-brass)]">
               Productos Gourmet
             </p>
           </div>
@@ -107,7 +104,7 @@ export function SiteHeader({ locale, announcement, nav }: SiteHeaderProps) {
 
             <SheetContent
               side="right"
-              className="w-72 border-l border-[var(--brand-olive)]/10 bg-white px-8 pt-12"
+              className="w-72 border-l border-[var(--brand-olive)]/10 bg-[var(--brand-cream)] px-8 pt-12"
             >
               <Link
                 href={`/${locale}`}
@@ -117,7 +114,7 @@ export function SiteHeader({ locale, announcement, nav }: SiteHeaderProps) {
                 <span className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-[var(--brand-olive)] text-xs font-semibold uppercase tracking-[0.2em] text-[var(--brand-cream)]">
                   HS
                 </span>
-                <span className="font-[family-name:var(--font-display)] text-2xl text-[var(--brand-olive)]">
+                <span className="font-[family-name:var(--font-bodoni)] text-2xl text-[var(--brand-olive)]">
                   {"HERBERT'S"}
                 </span>
               </Link>

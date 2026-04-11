@@ -1,13 +1,21 @@
 import type { Metadata } from "next";
+import localFont from "next/font/local";
+import { Figtree } from "next/font/google";
 
 import { AnalyticsScripts } from "@/components/analytics-scripts";
 import { CartProvider } from "@/components/cart-provider";
-
-import "./globals.css";
-import { Figtree } from "next/font/google";
 import { cn } from "@/lib/utils";
 
-const figtree = Figtree({subsets:['latin'],variable:'--font-sans'});
+import "./globals.css";
+
+const figtree = Figtree({ subsets: ["latin"], variable: "--font-sans" });
+
+const bauerBodoni = localFont({
+  src: "./fonts/BauerBodoniCondensedBold.ttf",
+  variable: "--font-bodoni",
+  display: "swap",
+  weight: "700",
+});
 
 export const metadata: Metadata = {
   title: "Herbert's",
@@ -21,7 +29,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={cn("font-sans", figtree.variable)}>
+    <html lang="en" className={cn("font-sans", figtree.variable, bauerBodoni.variable)}>
       <body>
         <CartProvider>
           {children}

@@ -32,6 +32,7 @@ type CartContextValue = {
   canCheckoutWithShopify: boolean;
   addItem: (item: Omit<CartItem, "quantity">) => void;
   removeItem: (id: string) => void;
+  updateQuantity: (id: string, quantity: number) => void;
   setCartOpen: (value: boolean) => void;
 };
 
@@ -116,6 +117,12 @@ export function CartProvider({ children }: { children: ReactNode }) {
         setCartOpen(true);
       },
       removeItem: (id) => setItems((current) => current.filter((item) => item.id !== id)),
+      updateQuantity: (id, quantity) =>
+        setItems((current) =>
+          quantity <= 0
+            ? current.filter((item) => item.id !== id)
+            : current.map((item) => (item.id === id ? { ...item, quantity } : item))
+        ),
       setCartOpen
     };
   }, [cartOpen, items]);

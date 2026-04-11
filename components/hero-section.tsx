@@ -371,6 +371,7 @@ export function HeroSection({ locale }: { locale: Locale }) {
       {items.map((item, i) => (
         <BentoGridItem
             key={i}
+            index={i}
             header={item.header}
             title={item.title}
             description={item.description}

@@ -1,25 +1,36 @@
 "use client";
 import Link from "next/link";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
+import Image from "next/image";
 
 import { AddToCartButton } from "@/components/add-to-cart-button";
 import { formatMoney } from "@/lib/data/site";
 import type { Locale } from "@/lib/i18n";
 import type { Product } from "@/lib/shopify/types";
-import Image from "next/image";
 
 export function ProductCard({
   product,
-  locale
+  locale,
+  index = 0,
 }: {
   product: Product;
   locale: Locale;
+  index?: number;
 }) {
+  const reduced = useReducedMotion();
+
   return (
-    <article className="flex flex-col overflow-hidden rounded-[36px] border border-[var(--brand-olive)]/10 bg-[var(--surface)] shadow-[0_18px_40px_rgba(45,53,33,0.08)]">
+    <motion.article
+      className="flex flex-col overflow-hidden rounded-[36px] border border-[var(--brand-olive)]/10 bg-[var(--surface)] shadow-[0_18px_40px_rgba(45,53,33,0.08)]"
+      initial={reduced ? false : { opacity: 0, y: 24 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.1 }}
+      whileHover={reduced ? {} : { y: -6, boxShadow: "0 28px_56px_rgba(45,53,33,0.14)" }}
+      transition={{ duration: 0.5, ease: [0.25, 0, 0, 1], delay: index * 0.09 }}
+    >
       <div className="overflow-hidden border-b border-[var(--brand-olive)]/10 bg-[var(--brand-olive)]">
         <motion.div
-          whileHover={{ scale: 1.1 }}
+          whileHover={reduced ? {} : { scale: 1.08, rotate: -10 }}
           transition={{ duration: 0.5, ease: [0.25, 0, 0, 1] }}
         >
           <Image
@@ -56,12 +67,12 @@ export function ProductCard({
           />
           <Link
             href={`/${locale}/products/${product.handle}`}
-            className="inline-flex items-center rounded-full border border-[var(--brand-olive)]/15 px-5 py-3 text-sm font-semibold text-[var(--brand-olive)]"
+            className="inline-flex items-center rounded-full border border-[var(--brand-olive)]/15 px-5 py-3 text-sm font-semibold text-[var(--brand-olive)] transition-colors duration-200 hover:bg-[var(--surface-muted)]"
           >
             Ver detalles
           </Link>
         </div>
       </div>
-    </article>
+    </motion.article>
   );
 }

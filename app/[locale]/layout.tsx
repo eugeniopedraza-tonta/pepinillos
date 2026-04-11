@@ -20,10 +20,10 @@ export async function generateMetadata({
   }
 
   return {
-    title: `${siteName} | ${locale === "es" ? "Pepinillos premium y pantry botánico" : "Premium pickles and herb-forward pantry"}`,
+    title: `${siteName} | ${locale === "es" ? "Productos gourmet premium" : "Gourmet products"}`,
     description:
       locale === "es"
-        ? "Sitio bilingüe en Next.js y Vercel para Herbert's, una marca de pepinillos gourmet con checkout en Shopify."
+        ? "Sitio bilingüe en Next.js y Vercel para Herbert's, una marca de productos gourmet con checkout en Shopify."
         : "Bilingual Next.js and Vercel storefront for Herbert's, a gourmet pickle brand with Shopify checkout."
   };
 }
