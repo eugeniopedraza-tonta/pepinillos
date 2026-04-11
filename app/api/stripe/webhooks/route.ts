@@ -1,3 +1,4 @@
+import type { PrismaClient } from "@prisma/client";
 import { NextResponse } from "next/server";
 
 import { markOrderFromCheckoutSession } from "@/lib/orders";
@@ -5,6 +6,8 @@ import { prisma } from "@/lib/prisma";
 import { getStripe, getStripeWebhookSigningSecret } from "@/lib/stripe/server";
 
 export const runtime = "nodejs";
+
+type WebhookTransactionClient = Pick<PrismaClient, "order" | "processedStripeEvent">;
 
 function isUniqueConstraintError(error: unknown) {
   return Boolean(
@@ -35,7 +38,7 @@ export async function POST(request: Request) {
       return NextResponse.json({ received: true, ignored: true });
     }
 
-    await prisma.$transaction(async (tx) => {
+    await prisma.$transaction(async (tx: WebhookTransactionClient) => {
       await tx.processedStripeEvent.create({
         data: {
           stripeEventId: event.id,
