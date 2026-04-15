@@ -13,6 +13,11 @@ enum OrderStatus {
   canceled
 }
 
+enum FulfillmentStatus {
+  unfulfilled
+  shipped
+}
+
 model ProductStripeMapping {
   id              String   @id @default(cuid())
   productKey      String   @unique
@@ -37,6 +42,8 @@ model Order {
   shippingName           String?
   shippingPhone          String?
   shippingAddressJson    String?
+  fulfillmentStatus      FulfillmentStatus @default(unfulfilled)
+  shippedAt              DateTime?
   paidAt                 DateTime?
   createdAt              DateTime    @default(now())
   updatedAt              DateTime    @updatedAt

@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useMemo, useState, useTransition } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 
 import { useCart } from "@/components/cart-provider";
@@ -9,8 +9,40 @@ import type { Locale } from "@/lib/i18n";
 export function CartDrawer({ locale }: { locale: Locale }) {
   const { items, cartOpen, setCartOpen, removeItem, updateQuantity, subtotal, whatsappCheckoutUrl } =
     useCart();
-  const [checkoutError] = useState<string | null>(null);
+  const [checkoutError, setCheckoutError] = useState<string | null>(null);
+  const [isPending, startTransition] = useTransition();
   const reduced = useReducedMotion();
+
+  function handleStripeCheckout() {
+    if (items.length === 0) return;
+    setCheckoutError(null);
+
+    startTransition(async () => {
+      try {
+        const res = await fetch("/api/checkout/sessions", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            locale,
+            items: items.map((item) => ({
+              productId: item.id,
+              quantity: item.quantity,
+            })),
+          }),
+        });
+
+        const data = (await res.json()) as { url?: string; error?: string };
+
+        if (!res.ok || !data.url) {
+          throw new Error(data.error ?? copy.error);
+        }
+
+        window.location.href = data.url;
+      } catch (err) {
+        setCheckoutError(err instanceof Error ? err.message : copy.error);
+      }
+    });
+  }
 
   const copy =
     locale === "es"
@@ -43,11 +75,12 @@ export function CartDrawer({ locale }: { locale: Locale }) {
 
   const money = useMemo(
     () =>
-      new Intl.NumberFormat(locale === "es" ? "es-MX" : "en-US", {
+      new Intl.NumberFormat("en-US", {
         style: "currency",
         currency: items[0]?.currencyCode || "MXN",
+        currencyDisplay: "narrowSymbol",
       }).format(subtotal),
-    [items, locale, subtotal]
+    [items, subtotal]
   );
 
   return (
@@ -164,9 +197,10 @@ export function CartDrawer({ locale }: { locale: Locale }) {
                     </div>
 
                     <p className="text-sm font-semibold text-[var(--brand-olive)]">
-                      {new Intl.NumberFormat("es-MX", {
+                      {new Intl.NumberFormat("en-US", {
                         style: "currency",
                         currency: item.currencyCode,
+                        currencyDisplay: "narrowSymbol",
                       }).format(Number(item.priceAmount) * item.quantity)}
                     </p>
                   </div>
@@ -183,7 +217,6 @@ export function CartDrawer({ locale }: { locale: Locale }) {
               <span>{copy.subtotal}</span>
               <span>{money}</span>
             </div>
-            {/* 
             <button
               type="button"
               onClick={handleStripeCheckout}
@@ -196,7 +229,6 @@ export function CartDrawer({ locale }: { locale: Locale }) {
             >
               {isPending ? copy.stripeLoading : copy.stripeCta}
             </button>
-            */}
             <a
               href={items.length === 0 ? "#" : whatsappCheckoutUrl}
               target="_blank"

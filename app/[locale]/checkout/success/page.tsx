@@ -25,9 +25,9 @@ export default async function CheckoutSuccessPage({
       ? {
           title: "Pago recibido",
           body: "Tu pedido ya quedó registrado y comenzaremos a prepararlo.",
-          processingTitle: "Estamos confirmando tu pago",
+          processingTitle: "Tu pedido ya está registrado",
           processingBody:
-            "Stripe ya te redirigió correctamente. En cuanto llegue la confirmación del webhook, este pedido aparecerá como pagado.",
+            "Tu pedido ya está registrado y comenzaremos a prepararlo. Revisa tu correo electrónico para más detalles.",
           missingTitle: "Falta el identificador de la sesión",
           missingBody:
             "No pudimos relacionar esta vista con un checkout específico. Regresa a la tienda si necesitas iniciar de nuevo.",
@@ -74,7 +74,7 @@ export default async function CheckoutSuccessPage({
       {result.state === "paid" ? <ClearCartOnMount /> : null}
       <section className="rounded-[40px] border border-[var(--brand-olive)]/10 bg-[var(--surface)] p-8 sm:p-10">
         <p className="text-xs uppercase tracking-[0.24em] text-[var(--brand-earth)]">
-          Stripe Checkout
+          Checkout con Stripe
         </p>
         <h1 className="mt-3 font-[family-name:var(--font-display)] text-5xl text-[var(--brand-olive)]">
           {title}

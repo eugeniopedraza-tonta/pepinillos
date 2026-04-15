@@ -1,13 +1,45 @@
+import { unsealData } from "iron-session";
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
 import { defaultLocale, locales } from "@/lib/i18n";
+import type { SessionData } from "@/lib/session";
 
 const PUBLIC_FILE = /\.(.*)$/;
 
-export function proxy(request: NextRequest) {
+export async function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
+  // ── Admin route protection ──────────────────────────────────────
+  if (pathname.startsWith("/admin")) {
+    // Login page is always accessible
+    if (pathname === "/admin/login") {
+      return NextResponse.next();
+    }
+
+    const cookieValue = request.cookies.get("admin_session")?.value;
+    let isLoggedIn = false;
+
+    if (cookieValue && process.env.SESSION_SECRET) {
+      try {
+        const session = await unsealData<SessionData>(cookieValue, {
+          password: process.env.SESSION_SECRET,
+        });
+        isLoggedIn = session.isLoggedIn === true;
+      } catch {
+        // Invalid or tampered cookie
+      }
+    }
+
+    if (!isLoggedIn) {
+      const loginUrl = new URL("/admin/login", request.url);
+      return NextResponse.redirect(loginUrl);
+    }
+
+    return NextResponse.next();
+  }
+
+  // ── Locale redirect ─────────────────────────────────────────────
   if (
     pathname.startsWith("/_next") ||
     pathname.startsWith("/api") ||
@@ -30,5 +62,5 @@ export function proxy(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/((?!_next/static|_next/image|favicon.ico).*)"]
+  matcher: ["/((?!_next/static|_next/image|favicon.ico).*)"],
 };

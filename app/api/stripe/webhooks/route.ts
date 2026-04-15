@@ -1,6 +1,7 @@
 import type { PrismaClient } from "@prisma/client";
 import { NextResponse } from "next/server";
 
+import { sendOrderConfirmationEmail } from "@/lib/email";
 import { markOrderFromCheckoutSession } from "@/lib/orders";
 import { prisma } from "@/lib/prisma";
 import { getStripe, getStripeWebhookSigningSecret } from "@/lib/stripe/server";
@@ -38,7 +39,7 @@ export async function POST(request: Request) {
       return NextResponse.json({ received: true, ignored: true });
     }
 
-    await prisma.$transaction(async (tx: WebhookTransactionClient) => {
+    const order = await prisma.$transaction(async (tx: WebhookTransactionClient) => {
       await tx.processedStripeEvent.create({
         data: {
           stripeEventId: event.id,
@@ -46,8 +47,39 @@ export async function POST(request: Request) {
         }
       });
 
-      await markOrderFromCheckoutSession(event.data.object, tx);
+      return markOrderFromCheckoutSession(event.data.object, tx);
     });
+
+    // Send order confirmation email (non-blocking — don't fail the webhook if email errors)
+    const fullOrder = await prisma.order.findUnique({
+      where: { id: (order as { id: string }).id },
+      include: { items: true },
+    });
+
+    if (fullOrder?.customerEmail && fullOrder.status === "paid") {
+      let shippingAddress = null;
+      if (fullOrder.shippingAddressJson) {
+        try { shippingAddress = JSON.parse(fullOrder.shippingAddressJson); } catch { /* ignore */ }
+      }
+
+      sendOrderConfirmationEmail({
+        locale: (fullOrder.locale === "en" ? "en" : "es"),
+        customerName: fullOrder.shippingName,
+        customerEmail: fullOrder.customerEmail,
+        orderId: fullOrder.id,
+        items: fullOrder.items.map((item) => ({
+          title: item.titleSnapshot,
+          quantity: item.quantity,
+          unitAmount: item.unitAmount,
+          currency: item.currency,
+        })),
+        subtotalAmount: fullOrder.subtotalAmount,
+        currency: fullOrder.currency,
+        shippingAddress,
+        shippingName: fullOrder.shippingName,
+        shippingPhone: fullOrder.shippingPhone,
+      }).catch((err) => console.error("[email] order confirmation failed:", err));
+    }
 
     return NextResponse.json({ received: true });
   } catch (error) {

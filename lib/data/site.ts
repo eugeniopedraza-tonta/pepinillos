@@ -487,10 +487,11 @@ export const siteCopy = {
   }
 } as const;
 
-export function formatMoney(amount: string, currencyCode: string, locale: Locale) {
-  return new Intl.NumberFormat(locale === "es" ? "es-MX" : "en-US", {
+export function formatMoney(amount: string, currencyCode: string, _locale?: Locale) {
+  return new Intl.NumberFormat("en-US", {
     style: "currency",
-    currency: currencyCode
+    currency: currencyCode,
+    currencyDisplay: "narrowSymbol",
   }).format(Number(amount));
 }
 
