@@ -236,7 +236,7 @@ export function CartDrawer({ locale }: { locale: Locale }) {
               className={`mt-3 inline-flex w-full items-center justify-center rounded-full border px-5 py-3 text-sm font-semibold transition-all duration-200 ${
                 items.length === 0
                   ? "pointer-events-none border-white/15 text-white/45"
-                  : "border-white/20 text-white hover:border-white/35 hover:bg-white/8"
+                  : "cursor-pointer border-white/20 text-white hover:border-white/35 hover:bg-white/8"
               }`}
             >
               {copy.whatsappCta}

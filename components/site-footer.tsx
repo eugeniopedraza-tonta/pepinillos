@@ -74,9 +74,9 @@ export function SiteFooter({ locale }: { locale: Locale }) {
 
       {/* Marquee strip — shown only when logos array is populated */}
       {marqueeLogos.length > 0 && (
-        <div className="border-b border-white/10 py-5">
+        <div id="tiendas" className="border-b border-white/10 py-5">
           <div className="mx-auto mb-4 px-6">
-            <p className="flex justify-center gap-2 text-xl font-bold uppercase tracking-[0.26em] text-[var(--brand-cream)]">
+            <p className="logo-herberts flex justify-center gap-2 text-xl font-bold uppercase tracking-[0.26em]">
               {copy.marqueeLabel}
             </p>
           </div>
@@ -98,7 +98,7 @@ export function SiteFooter({ locale }: { locale: Locale }) {
       {marqueeLogos.length > 0 && (
         <div className="border-b border-white/10 py-5">
           <div className="mx-auto mb-4 px-6">
-            <p className="flex justify-center gap-2 text-xl font-bold uppercase tracking-[0.26em] text-[var(--brand-cream)]">
+            <p className="logo-herberts flex justify-center gap-2 text-xl font-bold uppercase tracking-[0.26em]">
               PRÓXIMAMENTE EN
             </p>
           </div>
@@ -118,84 +118,74 @@ export function SiteFooter({ locale }: { locale: Locale }) {
       )}
 
       {/* Main content */}
-      <div className="mx-auto grid max-w-7xl gap-10 px-6 py-16 lg:grid-cols-[1.2fr_0.8fr]">
-        {/* Brand column */}
-        <div>
-          <div className="flex flex-col">
-            <span className="logo-herberts font-[family-name:var(--font-bodoni)] text-5xl leading-none text-center">
-              {"HERBERT'S"}
-            </span>
-            <p className="mt-1 text-xs uppercase tracking-[0.28em] text-[var(--brand-brass)] text-center">
-              {copy.tagline}
-            </p>
-          </div>
-
-          <h2 className="mt-6 font-[family-name:var(--font-display)] text-3xl leading-tight">
-            {copy.headline}
-          </h2>
-          <p className="mt-4 max-w-xl text-sm leading-7 text-[#d8d1c4]">
-            {copy.description}
+      <div className="mx-auto max-w-2xl px-6 py-16 text-center">
+        {/* Logo */}
+        <div className="flex flex-col items-center">
+          <span className="logo-herberts font-[family-name:var(--font-bodoni)] text-5xl leading-none">
+            {"HERBERT'S"}
+          </span>
+          <p className="mt-1 text-xs uppercase tracking-[0.28em] text-[var(--brand-brass)]">
+            {copy.tagline}
           </p>
+        </div>
 
-          <div className="mt-6 flex flex-wrap gap-3 text-sm font-semibold">
-          <motion.div
-            className="flex flex-wrap items-center gap-3"
-            initial={reducedMotion ? false : { opacity: 0, x: -12 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, ease: [0.25, 0, 0, 1], delay: 0.15 }}
+        <h2 className="mt-6 font-[family-name:var(--font-display)] text-3xl leading-tight">
+          {copy.headline}
+        </h2>
+        <p className="mx-auto mt-4 max-w-lg text-sm leading-7 text-[#d8d1c4]">
+          {copy.description}
+        </p>
+
+        {/* Social badges */}
+        <motion.div
+          className="mt-8 flex flex-wrap items-center justify-center gap-3"
+          initial={reducedMotion ? false : { opacity: 0, y: 8 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, ease: [0.25, 0, 0, 1], delay: 0.15 }}
+        >
+          <a
+            href={env.instagramUrl}
+            target="_blank"
+            rel="noreferrer"
+            className="badge-shimmer inline-flex items-center gap-1.5 rounded-full px-4 py-1.5 text-xs font-bold uppercase tracking-[0.2em] text-[var(--brand-olive)]"
           >
-            <span className="badge-shimmer inline-flex items-center gap-1.5 rounded-full px-4 py-1.5 text-xs font-bold uppercase tracking-[0.2em] text-[var(--brand-olive)]">
-              <a href={env.instagramUrl} target="_blank" rel="noreferrer">
-              Instagram
-            </a>
-            </span>
-            <span className="badge-shimmer inline-flex items-center gap-1.5 rounded-full px-4 py-1.5 text-xs font-bold uppercase tracking-[0.2em] text-[var(--brand-olive)]">
-              <a href={env.facebookUrl} target="_blank" rel="noreferrer">
-              Facebook
-            </a>
-            </span>
-            <span className="badge-shimmer inline-flex items-center gap-1.5 rounded-full px-4 py-1.5 text-xs font-bold uppercase tracking-[0.2em] text-[var(--brand-olive)]">
-            <a href={`https://wa.me/${env.whatsappNumber}`} target="_blank" rel="noreferrer">
-              WhatsApp
-            </a>
-            </span>
-          </motion.div>
-          </div>
-        </div>
-
-        {/* Newsletter column */}
-        <div className="rounded-[36px] bg-[var(--brand-cream)] p-6 text-[var(--brand-olive)]">
-          <p className="text-xs uppercase tracking-[0.24em] text-[var(--brand-earth)]">
-            {copy.newsletterKicker}
-          </p>
-          <h3 className="mt-3 font-[family-name:var(--font-display)] text-3xl">
-            {copy.newsletterTitle}
-          </h3>
-          <p className="mt-3 text-sm leading-7 text-[var(--brand-copy-muted)]">
-            {copy.newsletterBody}
-          </p>
-          <div className="mt-5">
-            <NewsletterForm />
-          </div>
-        </div>
+            Instagram
+          </a>
+          <a
+            href={env.facebookUrl}
+            target="_blank"
+            rel="noreferrer"
+            className="badge-shimmer inline-flex items-center gap-1.5 rounded-full px-4 py-1.5 text-xs font-bold uppercase tracking-[0.2em] text-[var(--brand-olive)]"
+          >
+            Facebook
+          </a>
+          <a
+            href={`https://wa.me/${env.whatsappNumber}`}
+            target="_blank"
+            rel="noreferrer"
+            className="badge-shimmer inline-flex items-center gap-1.5 rounded-full px-4 py-1.5 text-xs font-bold uppercase tracking-[0.2em] text-[var(--brand-olive)]"
+          >
+            WhatsApp
+          </a>
+        </motion.div>
       </div>
 
       {/* Bottom bar */}
-      <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-3 px-6 py-5 text-xs uppercase tracking-[0.18em] text-[#d5d0c4]">
-        <Separator />
-        <div className="flex flex-wrap gap-4">
+      <div className="border-t border-white/10 px-6 py-6 text-center text-xs uppercase tracking-[0.18em] text-[#d5d0c4]">
+        <div className="flex flex-wrap items-center justify-center gap-5">
           {copy.links.map((link) => (
-            <Link key={link.href} href={`/${locale}${link.href}`}
-              className="transition hover:text-[var(--brand-brass)]">
+            <Link
+              key={link.href}
+              href={`/${locale}${link.href}`}
+              className="transition hover:text-[var(--brand-brass)]"
+            >
               {link.label}
             </Link>
           ))}
         </div>
-        <p>{copy.legal}</p>
-      </div>
-      <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-3 px-6 py-5 text-xs uppercase tracking-[0.18em] text-[#d5d0c4]">
-        <p className="flex justify-start text-xs text-[#d5d0c4]">© 2026 Herbert&apos;s. Todos los derechos reservados.</p>
+        <p className="mt-3">{copy.legal}</p>
+        <p className="mt-1 text-[#d5d0c4]">© {new Date().getFullYear()} Herbert&apos;s. Todos los derechos reservados.</p>
       </div>
     </footer>
   );

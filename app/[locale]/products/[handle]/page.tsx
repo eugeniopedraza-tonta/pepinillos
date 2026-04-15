@@ -103,9 +103,6 @@ export default async function ProductPage({
               currencyCode={product.price.currencyCode}
               size={product.size}
             />
-            <p className="text-sm leading-7 text-[#516154]">
-              El carrito ahora puede cerrar la compra en Stripe o enviarse por WhatsApp si prefieres atención manual.
-            </p>
           </div>
         </section>
         </AnimateIn>

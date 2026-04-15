@@ -7,17 +7,19 @@ type AnimateInProps = {
   children: ReactNode;
   className?: string;
   delay?: number;
+  id?: string;
 };
 
-export function AnimateIn({ children, className, delay = 0 }: AnimateInProps) {
+export function AnimateIn({ children, className, delay = 0, id }: AnimateInProps) {
   const reduced = useReducedMotion();
 
   if (reduced) {
-    return <div className={className}>{children}</div>;
+    return <div id={id} className={className}>{children}</div>;
   }
 
   return (
     <motion.div
+      id={id}
       className={className}
       initial={{ opacity: 0, y: 28 }}
       whileInView={{ opacity: 1, y: 0 }}

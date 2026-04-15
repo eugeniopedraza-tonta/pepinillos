@@ -435,9 +435,10 @@ export const siteCopy = {
     localeLabel: "ES / EN",
     nav: [
       { href: "#historia", label: "Nuestra Historia" },
-      { href: "/shop", label: "Productos", highlight: true },
+      { href: "#productos", label: "Productos", highlight: true },
       { href: "/recipes", label: "Recetas" },
-      { href: "/contact", label: "Contacto" },
+      { href: "#contacto", label: "Contacto" },
+      { href: "#tiendas", label: "Encuéntranos En" },
     ],
     announcement: "Envíos en México y atención directa por Whatsapp.",
     hero: {
@@ -456,15 +457,16 @@ export const siteCopy = {
     socialBody:
       "Instagram y Facebook para descubrimiento, WhatsApp para cercanía y Stripe Checkout como el cierre de compra principal.",
     contactTitle: "Hablemos de pedidos, mayoreo o colaboraciones",
-    contactBody: "La tienda vende, pero la marca también tiene que conversar."
+    contactBody: ""
   },
   en: {
     localeLabel: "EN / ES",
     nav: [
-      { href: "/shop", label: "Products", highlight: true },
-      { href: "/recipes", label: "Recipes" },
-      { href: "/contact", label: "Contact" },
       { href: "#historia", label: "Our Story" },
+      { href: "#productos", label: "Products", highlight: true },
+      { href: "/recipes", label: "Recipes" },
+      { href: "#contacto", label: "Contact" },
+      { href: "#tiendas", label: "Find Us At" },
     ],
     announcement: "Shipping across Mexico with direct WhatsApp support.",
     hero: {
