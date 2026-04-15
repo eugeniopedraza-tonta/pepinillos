@@ -4,6 +4,7 @@ const constructEvent = vi.fn();
 const markOrderFromCheckoutSession = vi.fn();
 const processedStripeEventCreate = vi.fn();
 const prismaTransaction = vi.fn();
+const sendOrderConfirmationEmail = vi.fn().mockResolvedValue(undefined);
 
 vi.mock("@/lib/stripe/server", () => ({
   getStripe: () => ({
@@ -18,9 +19,16 @@ vi.mock("@/lib/orders", () => ({
   markOrderFromCheckoutSession
 }));
 
+vi.mock("@/lib/email", () => ({
+  sendOrderConfirmationEmail
+}));
+
 vi.mock("@/lib/prisma", () => ({
   prisma: {
-    $transaction: prismaTransaction
+    $transaction: prismaTransaction,
+    order: {
+      findUnique: vi.fn().mockResolvedValue(null)
+    }
   }
 }));
 

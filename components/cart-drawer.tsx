@@ -221,7 +221,7 @@ export function CartDrawer({ locale }: { locale: Locale }) {
               type="button"
               onClick={handleStripeCheckout}
               disabled={items.length === 0 || isPending}
-              className={`mt-4 inline-flex w-full items-center justify-center rounded-full px-5 py-3 text-sm font-semibold transition-all duration-200 ${
+              className={`mt-4 inline-flex w-full items-center justify-center rounded-full px-5 py-3 text-sm font-semibold transition-all duration-200 hover:cursor-pointer${
                 items.length === 0 || isPending
                   ? "cursor-not-allowed bg-white/20 text-white/55"
                   : "bg-[var(--brand-brass)] text-[var(--brand-olive)] hover:-translate-y-0.5 hover:opacity-90"

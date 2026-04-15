@@ -49,9 +49,6 @@ export default async function ContactPage({
           <h2 className="mt-4 font-[family-name:var(--font-display)] text-4xl text-[#21402d]">
             Captura interés para lanzamientos y recetas
           </h2>
-          <p className="mt-4 text-sm leading-7 text-[#516154]">
-            Este endpoint es ligero por ahora y queda listo para conectarse a Klaviyo o al proveedor de email que decidan.
-          </p>
           <div className="mt-6">
             <NewsletterForm />
           </div>

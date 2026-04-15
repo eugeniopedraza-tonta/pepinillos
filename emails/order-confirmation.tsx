@@ -55,7 +55,7 @@ function fmt(cents: number, currency: string) {
 
 const copy = {
   es: {
-    preview: "Tu pedido ha sido confirmado",
+    preview: "Revisa los detalles de tu compra y te notificaremos cuando se envíe.",
     greeting: (name: string | null) => `Hola${name ? `, ${name}` : ""}`,
     headline: "¡Tu pedido está confirmado!",
     body: "Gracias por tu compra. Hemos recibido tu pedido y comenzaremos a prepararlo.",
@@ -70,7 +70,7 @@ const copy = {
     footer: "Herbert's · Hecho en México · Productos Gourmet",
   },
   en: {
-    preview: "Your order has been confirmed",
+    preview: "Review your order details — we'll notify you when it ships.",
     greeting: (name: string | null) => `Hi${name ? `, ${name}` : ""}`,
     headline: "Your order is confirmed!",
     body: "Thank you for your purchase. We have received your order and will start preparing it.",
@@ -132,7 +132,6 @@ export function OrderConfirmationEmail({
           <Section style={styles.section}>
             <Text style={styles.sectionTitle}>{c.products}</Text>
 
-            {/* Table header */}
             <Row style={styles.tableHeader}>
               <Column style={{ ...styles.col, width: "50%" }}>
                 <Text style={styles.tableHeaderText}>Producto</Text>
@@ -148,7 +147,6 @@ export function OrderConfirmationEmail({
               </Column>
             </Row>
 
-            {/* Items */}
             {items.map((item, i) => (
               <Row
                 key={i}
@@ -173,7 +171,6 @@ export function OrderConfirmationEmail({
               </Row>
             ))}
 
-            {/* Subtotal row */}
             <Row style={styles.subtotalRow}>
               <Column style={{ width: "65%" }} />
               <Column style={{ width: "17%" }}>
@@ -189,7 +186,6 @@ export function OrderConfirmationEmail({
 
           <Hr style={styles.divider} />
 
-          {/* Shipping + contact — side by side on wider clients */}
           <Section style={styles.section}>
             <Row>
               {shippingAddress && (
@@ -229,7 +225,6 @@ export function OrderConfirmationEmail({
 
           <Hr style={styles.divider} />
 
-          {/* Footer */}
           <Section style={styles.footerSection}>
             <Text style={styles.footerText}>{c.footer}</Text>
             <Text style={styles.footerText}>© {new Date().getFullYear()} Herbert&apos;s</Text>
@@ -365,7 +360,7 @@ const styles: Record<string, React.CSSProperties> = {
     paddingRight: "4px",
   },
   subtotalRow: {
-    borderTop: `1px solid #e8e4d8`,
+    borderTop: "1px solid #e8e4d8",
     marginTop: "4px",
   },
   subtotalLabel: {

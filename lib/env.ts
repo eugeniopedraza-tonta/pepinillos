@@ -1,5 +1,5 @@
 export const env = {
-  siteUrl: process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000",
+  siteUrl: process.env.NEXT_PUBLIC_SITE_URL || "http://test.herberts.mx",
   stripePublishableKey: process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY || "",
   whatsappNumber: process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "8126264511",
   instagramUrl:

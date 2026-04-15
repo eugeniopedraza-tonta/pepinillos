@@ -24,6 +24,12 @@ export default function AdminLayout({
               Cerrar sesión
             </button>
           </form>
+          <button
+              onClick={() => window.location.href = '/'}
+              className="rounded-full border border-white/20 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.16em] text-[var(--brand-cream)] transition hover:border-white/40 hover:bg-white/10"
+            >
+              Regresar al sitio
+            </button>
         </div>
       </header>
 
