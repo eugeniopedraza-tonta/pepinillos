@@ -9,6 +9,7 @@ import {
 import { env } from "@/lib/env";
 import { createPendingOrder, attachStripeSessionToOrder } from "@/lib/orders";
 import { ensureStripeMappings, getStripe } from "@/lib/stripe/server";
+import { checkStockForCart } from "@/lib/stock";
 
 export const runtime = "nodejs";
 
@@ -22,6 +23,17 @@ export async function POST(request: Request) {
     const body = (await request.json()) as CheckoutRequestBody;
     const locale = getCheckoutLocale(body.locale);
     const cart = prepareCheckoutCart(body.items || [], locale);
+
+    const stockCheck = await checkStockForCart(
+      cart.items.map((item) => ({ productId: item.product.id, quantity: item.quantity }))
+    );
+    if (!stockCheck.ok) {
+      const names = stockCheck.violations.map(
+        (v) => `${v.productId} (solicitado: ${v.requested}, disponible: ${v.available})`
+      );
+      throw new CheckoutValidationError(`Stock insuficiente: ${names.join(", ")}`);
+    }
+
     const mappings = await ensureStripeMappings(cart.items.map((item) => item.product.id));
     const order = await createPendingOrder(cart, mappings);
 

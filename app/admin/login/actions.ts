@@ -3,31 +3,23 @@
 import { getIronSession } from "iron-session";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
-import { sessionOptions } from "@/lib/session";
-import type { SessionData } from "@/lib/session";
 
-export async function loginAction(
-  _prevState: { error?: string } | null,
-  formData: FormData
-): Promise<{ error: string }> {
+import { sessionOptions, type SessionData } from "@/lib/session";
+
+export async function loginAction(_prev: { error: string } | null, formData: FormData) {
   const email = formData.get("email") as string;
   const password = formData.get("password") as string;
 
-  const validEmail = process.env.ADMIN_EMAIL;
-  const validPassword = process.env.ADMIN_PASSWORD;
+  const adminEmail = process.env.ADMIN_EMAIL;
+  const adminPassword = process.env.ADMIN_PASSWORD;
 
-  if (!validEmail || !validPassword) {
-    return { error: "Admin credentials not configured." };
+  if (!adminEmail || !adminPassword || email !== adminEmail || password !== adminPassword) {
+    return { error: "Credenciales incorrectas." };
   }
 
-  if (email !== validEmail || password !== validPassword) {
-    return { error: "Correo o contraseña incorrectos." };
-  }
-
-  const cookieStore = await cookies();
-  const session = await getIronSession<SessionData>(cookieStore, sessionOptions);
+  const session = await getIronSession<SessionData>(await cookies(), sessionOptions);
   session.isLoggedIn = true;
   await session.save();
 
-  redirect("/admin/orders");
+  redirect("/admin");
 }

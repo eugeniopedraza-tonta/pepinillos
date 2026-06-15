@@ -7,24 +7,16 @@ export default function AdminLoginPage() {
   const [state, action, pending] = useActionState(loginAction, null);
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-[var(--surface-muted)]">
-      <div className="w-full max-w-sm rounded-[28px] bg-white p-8 shadow-[0_4px_8px_rgba(0,0,0,0.06),0_20px_48px_rgba(0,0,0,0.10)]">
-        {/* Logo */}
-        <div className="mb-8 text-center">
-          <p className="font-['Big_Caslon','Baskerville','Palatino_Linotype',serif] text-3xl font-bold text-[var(--brand-olive)]">
-            {"HERBERT'S"}
-          </p>
-          <p className="mt-1 text-xs uppercase tracking-[0.24em] text-[var(--brand-brass)]">
-            Panel de administración
-          </p>
-        </div>
+    <div className="flex min-h-screen items-center justify-center bg-[#f8f3e6] px-4">
+      <div className="w-full max-w-sm rounded-3xl border border-[#21402d]/10 bg-white p-8 shadow-[0_16px_48px_rgba(33,64,45,0.12)]">
+        <p className="text-xs uppercase tracking-[0.24em] text-[#7a4e25]">Admin</p>
+        <h1 className="mt-2 font-[family-name:var(--font-display)] text-3xl text-[#21402d]">
+          Herbert&apos;s
+        </h1>
 
-        <form action={action} className="space-y-4">
-          <div>
-            <label
-              htmlFor="email"
-              className="block text-xs font-semibold uppercase tracking-[0.16em] text-[var(--brand-olive)] mb-1.5"
-            >
+        <form action={action} className="mt-8 flex flex-col gap-4">
+          <div className="flex flex-col gap-1.5">
+            <label htmlFor="email" className="text-xs font-semibold uppercase tracking-wider text-[#21402d]">
               Correo
             </label>
             <input
@@ -33,15 +25,12 @@ export default function AdminLoginPage() {
               type="email"
               required
               autoComplete="email"
-              className="w-full rounded-xl border border-[var(--brand-olive)]/20 bg-[var(--surface-muted)] px-4 py-2.5 text-sm text-[var(--brand-olive)] outline-none transition focus:border-[var(--brand-brass)] focus:ring-2 focus:ring-[var(--brand-brass)]/20"
+              className="rounded-xl border border-[#21402d]/15 bg-[#f8f3e6] px-4 py-2.5 text-sm text-[#21402d] outline-none focus:border-[#21402d]/40 focus:ring-2 focus:ring-[#21402d]/10"
             />
           </div>
 
-          <div>
-            <label
-              htmlFor="password"
-              className="block text-xs font-semibold uppercase tracking-[0.16em] text-[var(--brand-olive)] mb-1.5"
-            >
+          <div className="flex flex-col gap-1.5">
+            <label htmlFor="password" className="text-xs font-semibold uppercase tracking-wider text-[#21402d]">
               Contraseña
             </label>
             <input
@@ -50,22 +39,20 @@ export default function AdminLoginPage() {
               type="password"
               required
               autoComplete="current-password"
-              className="w-full rounded-xl border border-[var(--brand-olive)]/20 bg-[var(--surface-muted)] px-4 py-2.5 text-sm text-[var(--brand-olive)] outline-none transition focus:border-[var(--brand-brass)] focus:ring-2 focus:ring-[var(--brand-brass)]/20"
+              className="rounded-xl border border-[#21402d]/15 bg-[#f8f3e6] px-4 py-2.5 text-sm text-[#21402d] outline-none focus:border-[#21402d]/40 focus:ring-2 focus:ring-[#21402d]/10"
             />
           </div>
 
           {state?.error && (
-            <p className="rounded-xl bg-red-50 px-4 py-2.5 text-xs text-red-600">
-              {state.error}
-            </p>
+            <p className="rounded-lg bg-red-50 px-4 py-2 text-sm text-red-600">{state.error}</p>
           )}
 
           <button
             type="submit"
             disabled={pending}
-            className="mt-2 w-full rounded-xl bg-[var(--brand-olive)] px-4 py-3 text-sm font-semibold text-[var(--brand-cream)] transition hover:opacity-90 disabled:opacity-50"
+            className="mt-2 rounded-xl bg-[#21402d] py-2.5 text-sm font-semibold text-[#f8f3e6] transition-opacity hover:opacity-80 disabled:opacity-50"
           >
-            {pending ? "Ingresando…" : "Ingresar"}
+            {pending ? "Entrando…" : "Entrar"}
           </button>
         </form>
       </div>

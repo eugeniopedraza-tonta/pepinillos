@@ -7,6 +7,11 @@ export function isLocale(value: string): value is Locale {
   return locales.includes(value as Locale);
 }
 
+export function localeFromPathname(pathname: string): Locale {
+  const seg = pathname.split("/")[1];
+  return isLocale(seg) ? seg : defaultLocale;
+}
+
 export function otherLocale(locale: Locale): Locale {
   return locale === "es" ? "en" : "es";
 }

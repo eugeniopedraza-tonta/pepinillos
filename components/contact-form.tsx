@@ -59,7 +59,7 @@ export function ContactForm({ locale, whatsappUrl, instagramUrl }: Props) {
             type="text"
             required
             className="rounded-2xl border border-white/15 bg-white/8 px-4 py-3 text-sm text-[#f2eedf] placeholder-white/30 outline-none transition focus:border-[#f0d08d]/60 focus:ring-1 focus:ring-[#f0d08d]/30"
-            placeholder="Herbert"
+            placeholder="Herbert's"
           />
         </div>
         <div className="flex flex-col gap-1.5">
@@ -69,7 +69,7 @@ export function ContactForm({ locale, whatsappUrl, instagramUrl }: Props) {
             type="email"
             required
             className="rounded-2xl border border-white/15 bg-white/8 px-4 py-3 text-sm text-[#f2eedf] placeholder-white/30 outline-none transition focus:border-[#f0d08d]/60 focus:ring-1 focus:ring-[#f0d08d]/30"
-            placeholder="hola@ejemplo.com"
+            placeholder="hola@herberts.mx"
           />
         </div>
       </div>

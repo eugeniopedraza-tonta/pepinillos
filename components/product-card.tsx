@@ -12,10 +12,12 @@ export function ProductCard({
   product,
   locale,
   index = 0,
+  stock,
 }: {
   product: Product;
   locale: Locale;
   index?: number;
+  stock?: number;
 }) {
   const reduced = useReducedMotion();
 
@@ -50,9 +52,14 @@ export function ProductCard({
               {product.title}
             </h3>
           </div>
-          <p className="text-sm font-semibold text-[var(--brand-olive)]">
-            {formatMoney(product.price.amount, product.price.currencyCode, locale)}
-          </p>
+          <div className="flex flex-col items-end gap-1.5">
+            <p className="text-sm font-semibold text-[var(--brand-olive)]">
+              {formatMoney(product.price.amount, product.price.currencyCode, locale)}
+            </p>
+            {stock === 0 && (
+              <span className="rounded-full bg-red-50 px-2.5 py-0.5 text-xs font-semibold text-red-600">Agotado</span>
+            )}
+          </div>
         </div>
         <p className="text-sm leading-7 text-[var(--brand-copy-muted)]">{product.description}</p>
         <div className="mt-auto flex flex-wrap items-center gap-3">
@@ -63,6 +70,7 @@ export function ProductCard({
             priceAmount={product.price.amount}
             currencyCode={product.price.currencyCode}
             size={product.size}
+            stock={stock}
           />
           <Link
             href={`/${locale}/products/${product.handle}`}

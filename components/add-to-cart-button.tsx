@@ -12,6 +12,7 @@ type AddToCartButtonProps = {
   currencyCode: string;
   size: string;
   color?: string;
+  stock?: number;
 };
 
 export function AddToCartButton(props: AddToCartButtonProps) {
@@ -21,6 +22,21 @@ export function AddToCartButton(props: AddToCartButtonProps) {
   const cartItem = items.find((item) => item.id === props.id);
   const quantity = cartItem?.quantity ?? 0;
   const inCart = quantity > 0;
+  const maxStock = props.stock ?? Infinity;
+  const outOfStock = maxStock === 0;
+  const atLimit = quantity >= maxStock;
+
+  if (outOfStock) {
+    return (
+      <button
+        type="button"
+        disabled
+        className="inline-flex items-center justify-center rounded-full bg-[#21402d]/10 px-5 py-3 text-sm font-semibold text-[#21402d]/40 cursor-not-allowed"
+      >
+        Sin existencias
+      </button>
+    );
+  }
 
   function handleAdd() {
     addItem({
@@ -42,6 +58,7 @@ export function AddToCartButton(props: AddToCartButtonProps) {
   }
 
   return (
+    <div className="flex flex-col items-start gap-1.5">
     <AnimatePresence mode="wait" initial={false}>
       {!inCart ? (
         <motion.button
@@ -98,7 +115,8 @@ export function AddToCartButton(props: AddToCartButtonProps) {
             type="button"
             aria-label="Aumentar cantidad"
             onClick={handleIncrement}
-            className="flex h-11 w-11 items-center justify-center text-[var(--brand-cream)] transition-colors duration-150 hover:bg-white/10 active:bg-white/20 hover:cursor-pointer border-l border-[var(--brand-olive)]/10"
+            disabled={atLimit}
+            className="flex h-11 w-11 items-center justify-center text-[var(--brand-cream)] transition-colors duration-150 hover:bg-white/10 active:bg-white/20 hover:cursor-pointer border-l border-[var(--brand-olive)]/10 disabled:opacity-40 disabled:cursor-not-allowed"
           >
             <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
               <path d="M6 1v10M1 6h10" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
@@ -107,5 +125,9 @@ export function AddToCartButton(props: AddToCartButtonProps) {
         </motion.div>
       )}
     </AnimatePresence>
+    {inCart && atLimit && maxStock !== Infinity && (
+      <p className="text-xs text-[#7a4e25]">Límite: solo {maxStock} disponibles</p>
+    )}
+    </div>
   );
 }
