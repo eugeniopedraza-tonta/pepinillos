@@ -13,6 +13,8 @@ export type Product = {
   image?: {
     url?: string;
     altText?: string | null;
+    width?: number;
+    height?: number;
   };
   variantId?: string;
   accent: string;

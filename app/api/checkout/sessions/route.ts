@@ -7,8 +7,8 @@ import {
   type CheckoutRequestItem
 } from "@/lib/checkout";
 import { env } from "@/lib/env";
-import { createPendingOrder, attachStripeSessionToOrder } from "@/lib/orders";
-import { ensureStripeMappings, getStripe } from "@/lib/stripe/server";
+import { buildShippingOptions } from "@/lib/shipping";
+import { getStripe } from "@/lib/stripe/server";
 
 export const runtime = "nodejs";
 
@@ -22,28 +22,27 @@ export async function POST(request: Request) {
     const body = (await request.json()) as CheckoutRequestBody;
     const locale = getCheckoutLocale(body.locale);
     const cart = prepareCheckoutCart(body.items || [], locale);
-    const mappings = await ensureStripeMappings(cart.items.map((item) => item.product.id));
-    const order = await createPendingOrder(cart, mappings);
 
     const stripe = getStripe();
+    const currency = cart.currency.toLowerCase();
+
     const successUrl = new URL(`/${locale}/checkout/success`, env.siteUrl);
     const cancelUrl = new URL(`/${locale}/checkout/cancel`, env.siteUrl);
 
     successUrl.searchParams.set("session_id", "{CHECKOUT_SESSION_ID}");
 
     const session = await stripe.checkout.sessions.create({
-      line_items: cart.items.map((item) => {
-        const mapping = mappings.get(item.product.id);
-
-        if (!mapping) {
-          throw new Error(`Missing Stripe price mapping for ${item.product.id}`);
+      line_items: cart.items.map((item) => ({
+        quantity: item.quantity,
+        price_data: {
+          currency,
+          unit_amount: item.unitAmount,
+          product_data: {
+            name: item.product.title,
+            metadata: { productKey: item.product.id }
+          }
         }
-
-        return {
-          price: mapping.stripePriceId,
-          quantity: item.quantity
-        };
-      }),
+      })),
       mode: "payment",
       locale,
       customer_creation: "always",
@@ -53,9 +52,8 @@ export async function POST(request: Request) {
       shipping_address_collection: {
         allowed_countries: ["MX"]
       },
-      client_reference_id: order.id,
+      shipping_options: buildShippingOptions(cart.subtotalAmount, cart.currency),
       metadata: {
-        orderId: order.id,
         locale
       },
       success_url: successUrl.toString(),
@@ -65,8 +63,6 @@ export async function POST(request: Request) {
     if (!session.url) {
       throw new Error("Stripe Checkout did not return a redirect URL.");
     }
-
-    await attachStripeSessionToOrder(order.id, session.id);
 
     return NextResponse.json({ url: session.url });
   } catch (error) {

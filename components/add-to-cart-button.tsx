@@ -42,6 +42,7 @@ export function AddToCartButton(props: AddToCartButtonProps) {
   }
 
   return (
+    <div className="flex flex-col items-start gap-1.5">
     <AnimatePresence mode="wait" initial={false}>
       {!inCart ? (
         <motion.button
@@ -107,5 +108,6 @@ export function AddToCartButton(props: AddToCartButtonProps) {
         </motion.div>
       )}
     </AnimatePresence>
+    </div>
   );
 }

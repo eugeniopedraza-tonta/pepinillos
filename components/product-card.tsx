@@ -34,10 +34,10 @@ export function ProductCard({
           transition={{ duration: 0.5, ease: [0.25, 0, 0, 1] }}
         >
           <Image
-            src={"/pepinillos.png"}
-            alt="Pepinillos"
-            width={200}
-            height={100}
+            src={product.image?.url ?? "/pepinillos.png"}
+            alt={product.image?.altText ?? product.title}
+            width={product.image?.width ?? 200}
+            height={product.image?.height ?? 100}
             className="mx-auto h-auto bg-transparent object-cover"
           />
         </motion.div>
@@ -50,9 +50,11 @@ export function ProductCard({
               {product.title}
             </h3>
           </div>
-          <p className="text-sm font-semibold text-[var(--brand-olive)]">
-            {formatMoney(product.price.amount, product.price.currencyCode, locale)}
-          </p>
+          <div className="flex flex-col items-end gap-1.5">
+            <p className="text-sm font-semibold text-[var(--brand-olive)]">
+              {formatMoney(product.price.amount, product.price.currencyCode, locale)}
+            </p>
+          </div>
         </div>
         <p className="text-sm leading-7 text-[var(--brand-copy-muted)]">{product.description}</p>
         <div className="mt-auto flex flex-wrap items-center gap-3">

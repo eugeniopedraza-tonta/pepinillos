@@ -3,7 +3,7 @@ import { isLocale, type Locale } from "@/lib/i18n";
 const copy = {
   es: {
     title: "Envíos",
-    body: "La operación inicial está pensada para México. En esta primera versión el checkout recopila la dirección de envío en Stripe y la logística se puede mantener simple mientras la demanda real define las siguientes reglas."
+    body: "Envios solamente en Monterrey, Nuevo León, México. Se hacen bajo pedido y se coordina a traves de Whatsapp. No se incluye el costo de envío en el precio de los productos."
   },
   en: {
     title: "Shipping",

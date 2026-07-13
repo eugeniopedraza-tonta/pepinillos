@@ -3,7 +3,7 @@ import { isLocale, type Locale } from "@/lib/i18n";
 const copy = {
   es: {
     title: "Devoluciones",
-    body: "Para un producto alimenticio conviene definir una política clara sobre producto dañado, errores de envío y tiempos máximos de reporte antes de escalar operación."
+    body: "No se aceptan devoluciones, las transacciones son finales."
   },
   en: {
     title: "Returns",

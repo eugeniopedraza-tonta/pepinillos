@@ -66,8 +66,8 @@ export function FeaturedProductCard({
             transition={{ duration: 0.5, ease: [0.25, 0, 0, 1] }}
           >
             <Image
-              src="/pepinillos.png"
-              alt={product.title}
+              src={product.image?.url ?? "/pepinillos.png"}
+              alt={product.image?.altText ?? product.title}
               width={300}
               height={300}
               className="mx-auto h-auto w-full max-w-[260px] drop-shadow-2xl"
@@ -88,7 +88,7 @@ export function FeaturedProductCard({
             <span className="badge-shimmer inline-flex items-center gap-1.5 rounded-full px-4 py-1.5 text-xs font-bold uppercase tracking-[0.2em] text-[var(--brand-olive)]">
               ★ {product.badge}
             </span>
-            <span className="text-xs uppercase tracking-[0.22em] text-[var(--brand-brass)]/60">
+            <span className="text-xs uppercase tracking-[0.22em] text-white">
               {product.size}
             </span>
           </motion.div>

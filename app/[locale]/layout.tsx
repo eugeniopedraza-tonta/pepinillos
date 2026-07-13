@@ -23,7 +23,7 @@ export async function generateMetadata({
     title: `${siteName} | ${locale === "es" ? "Productos gourmet" : "Gourmet products"}`,
     description:
       locale === "es"
-        ? "Sitio bilingüe en Next.js y Vercel para Herbert's, una marca de productos gourmet con checkout en Stripe."
+        ? "Productos gorumet de alta calidad, una receta familiar"
         : "Bilingual Next.js and Vercel storefront for Herbert's, a gourmet pickle brand with Stripe checkout."
   };
 }
@@ -55,5 +55,5 @@ export default async function LocaleLayout({
 }
 
 export function generateStaticParams() {
-  return [{ locale: "es" }, { locale: "en" }];
+  return [{ locale: "es" }];
 }

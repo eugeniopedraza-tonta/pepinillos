@@ -5,15 +5,22 @@ import { defaultLocale, locales } from "@/lib/i18n";
 
 const PUBLIC_FILE = /\.(.*)$/;
 
-export function proxy(request: NextRequest) {
+export async function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
+  // ── Locale redirect ─────────────────────────────────────────────
   if (
     pathname.startsWith("/_next") ||
     pathname.startsWith("/api") ||
     PUBLIC_FILE.test(pathname)
   ) {
     return NextResponse.next();
+  }
+
+  if (pathname === "/en" || pathname.startsWith("/en/")) {
+    const url = request.nextUrl.clone();
+    url.pathname = `/${defaultLocale}${pathname.slice(3)}`;
+    return NextResponse.redirect(url);
   }
 
   const hasLocale = locales.some(
@@ -30,5 +37,5 @@ export function proxy(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/((?!_next/static|_next/image|favicon.ico).*)"]
+  matcher: ["/((?!_next/static|_next/image|favicon.ico).*)"],
 };
