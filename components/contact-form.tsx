@@ -1,7 +1,7 @@
 "use client";
 
 import { useActionState } from "react";
-import { motion } from "framer-motion";
+import { motion, type Variants } from "framer-motion";
 import { sendContactEmail, type ContactState } from "@/app/actions/contact";
 import type { Locale } from "@/lib/i18n";
 import { ArrowRight02Icon } from "@hugeicons/core-free-icons";
@@ -36,12 +36,16 @@ const copy = {
 
 const initial: ContactState = { status: "idle" };
 
-const btnVariants = {
+const btnVariants: Variants = {
   hidden: { opacity: 0, y: 10 },
   visible: (i: number) => ({
     opacity: 1,
     y: 0,
-    transition: { delay: i * 0.08, duration: 0.35, ease: [0.25, 0, 0, 1] },
+    transition: {
+      delay: i * 0.08,
+      duration: 0.35,
+      ease: [0.25, 0, 0, 1] as [number, number, number, number],
+    },
   }),
 };
 
