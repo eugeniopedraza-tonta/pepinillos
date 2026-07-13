@@ -217,6 +217,7 @@ export function CartDrawer({ locale }: { locale: Locale }) {
               <span>{copy.subtotal}</span>
               <span>{money}</span>
             </div>
+            {/*
             <button
               type="button"
               onClick={handleStripeCheckout}
@@ -229,6 +230,7 @@ export function CartDrawer({ locale }: { locale: Locale }) {
             >
               {isPending ? copy.stripeLoading : copy.stripeCta}
             </button>
+            */}
             <a
               href={items.length === 0 ? "#" : whatsappCheckoutUrl}
               target="_blank"

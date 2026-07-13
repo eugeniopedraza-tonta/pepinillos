@@ -30,7 +30,7 @@ export const catalogProducts: Record<Locale, Product[]> = {
       id: "pepinillos-dulces",
       handle: "pepinillos-dulces",
       title: "Pepinillos Dulces",
-      image: { url: "/pepinillos.png", altText: "Pepinillos Dulces", width: 200, height: 100 },
+      image: { url: "/pepinillos_tradicional.png", altText: "Pepinillos Dulces", width: 200, height: 100 },
       description:
         "El inconfundible sabor de Herbert's, elaborado con el corazón del pepino, cuidadosamente seleccionado y equilibrado con especias y un toque dulce que lo hace simplemente irresistible.",
       price: { amount: "250.00", currencyCode: "MXN" },
