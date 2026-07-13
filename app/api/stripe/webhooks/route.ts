@@ -1,22 +1,53 @@
-import type { PrismaClient } from "@prisma/client";
 import { NextResponse } from "next/server";
+import type Stripe from "stripe";
 
 import { sendOrderConfirmationEmail } from "@/lib/email";
-import { markOrderFromCheckoutSession } from "@/lib/orders";
-import { prisma } from "@/lib/prisma";
 import { getStripe, getStripeWebhookSigningSecret } from "@/lib/stripe/server";
 
 export const runtime = "nodejs";
 
-type WebhookTransactionClient = Pick<PrismaClient, "order" | "processedStripeEvent">;
+function orderRefFromSession(session: Stripe.Checkout.Session) {
+  return session.id.replace(/^cs_(test_|live_)?/, "");
+}
 
-function isUniqueConstraintError(error: unknown) {
-  return Boolean(
-    error &&
-      typeof error === "object" &&
-      "code" in error &&
-      (error as { code?: string }).code === "P2002"
-  );
+async function sendConfirmationForSession(
+  stripe: Stripe,
+  session: Stripe.Checkout.Session
+) {
+  const customerEmail =
+    session.customer_details?.email || session.customer_email || null;
+
+  if (!customerEmail) {
+    return;
+  }
+
+  const lineItems = await stripe.checkout.sessions.listLineItems(session.id, {
+    limit: 100
+  });
+  const currency = session.currency || "mxn";
+  const shippingDetails = session.collected_information?.shipping_details;
+  const shippingAddress =
+    shippingDetails?.address || session.customer_details?.address || null;
+
+  await sendOrderConfirmationEmail({
+    locale: session.metadata?.locale === "en" ? "en" : "es",
+    customerName: session.customer_details?.name || null,
+    customerEmail,
+    orderId: orderRefFromSession(session),
+    items: lineItems.data.map((item) => ({
+      title: item.description || "",
+      quantity: item.quantity || 1,
+      unitAmount: item.price?.unit_amount || 0,
+      currency: item.price?.currency || currency
+    })),
+    subtotalAmount: session.amount_subtotal || 0,
+    shippingAmount: session.shipping_cost?.amount_total || 0,
+    totalAmount: session.amount_total ?? null,
+    currency,
+    shippingAddress,
+    shippingName: shippingDetails?.name || session.customer_details?.name || null,
+    shippingPhone: session.customer_details?.phone || null
+  });
 }
 
 export async function POST(request: Request) {
@@ -39,54 +70,17 @@ export async function POST(request: Request) {
       return NextResponse.json({ received: true, ignored: true });
     }
 
-    const order = await prisma.$transaction(async (tx: WebhookTransactionClient) => {
-      await tx.processedStripeEvent.create({
-        data: {
-          stripeEventId: event.id,
-          type: event.type
-        }
-      });
+    const session = event.data.object as Stripe.Checkout.Session;
 
-      return markOrderFromCheckoutSession(event.data.object, tx);
-    });
-
-    // Send order confirmation email (non-blocking — don't fail the webhook if email errors)
-    const fullOrder = await prisma.order.findUnique({
-      where: { id: (order as { id: string }).id },
-      include: { items: true },
-    });
-
-    if (fullOrder?.customerEmail && fullOrder.status === "paid") {
-      let shippingAddress = null;
-      if (fullOrder.shippingAddressJson) {
-        try { shippingAddress = JSON.parse(fullOrder.shippingAddressJson); } catch { /* ignore */ }
-      }
-
-      sendOrderConfirmationEmail({
-        locale: (fullOrder.locale === "en" ? "en" : "es"),
-        customerName: fullOrder.shippingName,
-        customerEmail: fullOrder.customerEmail,
-        orderId: fullOrder.id,
-        items: fullOrder.items.map((item) => ({
-          title: item.titleSnapshot,
-          quantity: item.quantity,
-          unitAmount: item.unitAmount,
-          currency: item.currency,
-        })),
-        subtotalAmount: fullOrder.subtotalAmount,
-        currency: fullOrder.currency,
-        shippingAddress,
-        shippingName: fullOrder.shippingName,
-        shippingPhone: fullOrder.shippingPhone,
-      }).catch((err) => console.error("[email] order confirmation failed:", err));
+    // Send confirmation email (non-blocking — don't fail the webhook if email errors)
+    if (session.payment_status === "paid") {
+      await sendConfirmationForSession(stripe, session).catch((err) =>
+        console.error("[email] order confirmation failed:", err)
+      );
     }
 
     return NextResponse.json({ received: true });
   } catch (error) {
-    if (isUniqueConstraintError(error)) {
-      return NextResponse.json({ received: true, duplicate: true });
-    }
-
     const message =
       error instanceof Error ? error.message : "Unable to process Stripe webhook.";
 

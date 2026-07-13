@@ -27,6 +27,8 @@ function buildHtml(props: OrderConfirmationEmailProps): string {
     orderId,
     items,
     subtotalAmount,
+    shippingAmount,
+    totalAmount,
     currency,
     shippingAddress,
     shippingName,
@@ -34,6 +36,11 @@ function buildHtml(props: OrderConfirmationEmailProps): string {
   } = props;
 
   const shortId = orderId.slice(0, 8).toUpperCase();
+  const grandTotal = totalAmount ?? subtotalAmount + shippingAmount;
+  const isEs = props.locale !== "en";
+  const shippingLabel = isEs ? "Envío" : "Shipping";
+  const freeLabel = isEs ? "Gratis" : "Free";
+  const totalLabel = "Total";
 
   const itemRows = items
     .map(
@@ -106,6 +113,16 @@ function buildHtml(props: OrderConfirmationEmailProps): string {
                       <td colspan="2" style="padding:12px 6px 0;"></td>
                       <td style="text-align:right;padding:12px 6px 0;color:#6b7c62;font-size:12px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;">Subtotal</td>
                       <td style="text-align:right;padding:12px 4px 0;color:#333D0D;font-size:15px;font-weight:700;">${fmt(subtotalAmount, currency)}</td>
+                    </tr>
+                    <tr>
+                      <td colspan="2" style="padding:6px 6px 0;"></td>
+                      <td style="text-align:right;padding:6px 6px 0;color:#6b7c62;font-size:12px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;">${shippingLabel}</td>
+                      <td style="text-align:right;padding:6px 4px 0;color:#333D0D;font-size:15px;font-weight:700;">${shippingAmount === 0 ? freeLabel : fmt(shippingAmount, currency)}</td>
+                    </tr>
+                    <tr>
+                      <td colspan="2" style="padding:8px 6px 0;"></td>
+                      <td style="text-align:right;padding:8px 6px 0;color:#333D0D;font-size:13px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;">${totalLabel}</td>
+                      <td style="text-align:right;padding:8px 4px 0;color:#333D0D;font-size:18px;font-weight:700;">${fmt(grandTotal, currency)}</td>
                     </tr>
                   </tfoot>
                 </table>

@@ -11,11 +11,9 @@ import type { Locale } from "@/lib/i18n";
 export function FeaturedProductCard({
   product,
   locale,
-  stock,
 }: {
   product: Product;
   locale: Locale;
-  stock?: number;
 }) {
   const reduced = useReducedMotion();
 
@@ -68,8 +66,8 @@ export function FeaturedProductCard({
             transition={{ duration: 0.5, ease: [0.25, 0, 0, 1] }}
           >
             <Image
-              src="/pepinillos.png"
-              alt={product.title}
+              src={product.image?.url ?? "/pepinillos.png"}
+              alt={product.image?.altText ?? product.title}
               width={300}
               height={300}
               className="mx-auto h-auto w-full max-w-[260px] drop-shadow-2xl"
@@ -93,11 +91,6 @@ export function FeaturedProductCard({
             <span className="text-xs uppercase tracking-[0.22em] text-white">
               {product.size}
             </span>
-            {stock === 0 && (
-              <span className="rounded-full bg-red-900/30 px-3 py-1 text-xs font-semibold text-red-300">
-                Agotado
-              </span>
-            )}
           </motion.div>
 
           {/* Title */}
@@ -148,7 +141,6 @@ export function FeaturedProductCard({
               priceAmount={product.price.amount}
               currencyCode={product.price.currencyCode}
               size={product.size}
-              stock={stock}
             />
             <Link
               href={`/${locale}/products/${product.handle}`}

@@ -53,7 +53,7 @@ export function CartDrawer({ locale }: { locale: Locale }) {
           subtotal: "Subtotal",
           stripeCta: "Pagar con Stripe",
           stripeLoading: "Abriendo checkout...",
-          whatsappCta: "Enviar por WhatsApp",
+          whatsappCta: "Terminar compra en WhatsApp",
           remove: "Eliminar producto",
           decrement: "Reducir cantidad",
           increment: "Aumentar cantidad",
@@ -109,7 +109,7 @@ export function CartDrawer({ locale }: { locale: Locale }) {
           <button
             type="button"
             aria-label="Cerrar carrito"
-            className="flex h-9 w-9 items-center justify-center rounded-full border border-[var(--brand-olive)]/15 text-[var(--brand-olive)] transition-colors duration-150 hover:bg-[var(--surface)]"
+            className="flex h-9 w-9 items-center justify-center rounded-full border border-[var(--brand-olive)]/15 text-[var(--brand-olive)] transition-colors duration-150 hover:bg-[var(--surface)] hover:cursor-pointer"
             onClick={() => setCartOpen(false)}
           >
             <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
@@ -147,7 +147,7 @@ export function CartDrawer({ locale }: { locale: Locale }) {
                       type="button"
                       aria-label={copy.remove}
                       onClick={() => removeItem(item.id)}
-                      className="shrink-0 rounded-full p-1.5 text-[var(--brand-earth)]/60 transition-colors duration-150 hover:bg-[var(--surface-muted)] hover:text-[var(--brand-earth)]"
+                      className="shrink-0 rounded-full p-1.5 text-[var(--brand-earth)]/80 transition-colors duration-150 hover:bg-[var(--surface-muted)] hover:text-[var(--brand-earth)] hover:cursor-pointer border border-[var(--brand-olive)]/10"
                     >
                       <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
                         <path d="M1 1l10 10M11 1L1 11" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
@@ -221,10 +221,10 @@ export function CartDrawer({ locale }: { locale: Locale }) {
               type="button"
               onClick={handleStripeCheckout}
               disabled={items.length === 0 || isPending}
-              className={`mt-4 inline-flex w-full items-center justify-center rounded-full px-5 py-3 text-sm font-semibold transition-all duration-200 hover:cursor-pointer ${
+              className={`mt-4 inline-flex w-full items-center justify-center rounded-full px-5 py-3 text-sm font-semibold transition-all duration-200 ${
                 items.length === 0 || isPending
-                  ? "cursor-not-allowed bg-white/20 text-white/55"
-                  : "bg-[var(--brand-brass)] text-[var(--brand-olive)] hover:-translate-y-0.5 hover:opacity-90"
+                  ? "pointer-events-none bg-[var(--brand-brass)]/40 text-[var(--brand-olive)]/50"
+                  : "cursor-pointer bg-[var(--brand-brass)] text-[var(--brand-olive)] hover:-translate-y-px hover:opacity-90"
               }`}
             >
               {isPending ? copy.stripeLoading : copy.stripeCta}

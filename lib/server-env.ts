@@ -19,7 +19,3 @@ export function getStripePublishableKey() {
 export function getStripeWebhookSecret() {
   return requireEnv("STRIPE_WEBHOOK_SECRET");
 }
-
-export function getDatabaseUrl() {
-  return requireEnv("DATABASE_URL");
-}

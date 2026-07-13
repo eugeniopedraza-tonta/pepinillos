@@ -4,7 +4,6 @@ import { ProductCard } from "@/components/product-card";
 import { getProducts } from "@/lib/catalog";
 import { siteCopy } from "@/lib/data/site";
 import { isLocale, type Locale } from "@/lib/i18n";
-import { getAllStock } from "@/lib/stock";
 
 export default async function ShopPage({
   params
@@ -13,7 +12,7 @@ export default async function ShopPage({
 }) {
   const { locale } = await params;
   const safeLocale: Locale = isLocale(locale) ? locale : "es";
-  const [products, stockMap] = await Promise.all([getProducts(safeLocale), getAllStock()]);
+  const products = await getProducts(safeLocale);
   const copy = siteCopy[safeLocale];
 
   return (
@@ -35,9 +34,9 @@ export default async function ShopPage({
       <section className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {products.map((product, i) =>
           i === 0 ? (
-            <FeaturedProductCard key={product.id} product={product} locale={safeLocale} stock={stockMap.get(product.id) ?? 0} />
+            <FeaturedProductCard key={product.id} product={product} locale={safeLocale} />
           ) : (
-            <ProductCard key={product.id} product={product} locale={safeLocale} index={i} stock={stockMap.get(product.id) ?? 0} />
+            <ProductCard key={product.id} product={product} locale={safeLocale} index={i} />
           )
         )}
       </section>

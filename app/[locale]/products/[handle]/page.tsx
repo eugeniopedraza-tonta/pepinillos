@@ -6,7 +6,6 @@ import { ProductImagePanel } from "@/components/product-image-panel";
 import { getProduct } from "@/lib/catalog";
 import { formatMoney } from "@/lib/data/site";
 import { isLocale, type Locale } from "@/lib/i18n";
-import { getProductStock } from "@/lib/stock";
 
 export default async function ProductPage({
   params
@@ -20,8 +19,6 @@ export default async function ProductPage({
   if (!product) {
     notFound();
   }
-
-  const stock = await getProductStock(product.id);
 
   return (
     <div className="mx-auto max-w-6xl px-6 py-10">
@@ -105,7 +102,6 @@ export default async function ProductPage({
               priceAmount={product.price.amount}
               currencyCode={product.price.currencyCode}
               size={product.size}
-              stock={stock}
             />
           </div>
         </section>

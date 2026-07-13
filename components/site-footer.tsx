@@ -25,6 +25,7 @@ const proximamenteLogos: { src: string; w: number; h: number }[] = [
   { src: "cocinapractica.png", w: 200, h: 40 },
   { src: "mode-super.webp", w: 200, h: 60 },
   { src: "super-roma.png", w: 350, h: 80 },
+  { src: "vigar.png", w: 150, h: 40 },
 ];
 
 const footerCopy = {
@@ -73,6 +74,7 @@ export function SiteFooter({ locale }: { locale: Locale }) {
     <footer className="mt-24 border-t border-[var(--brand-olive)]/10 bg-[var(--brand-olive)] text-[var(--brand-cream)]">
 
       {/* Marquee strip — shown only when logos array is populated */}
+      {/* 
       {marqueeLogos.length > 0 && (
         <div id="tiendas" className="border-b border-white/10 py-5">
           <div className="mx-auto mb-4 px-6">
@@ -94,7 +96,7 @@ export function SiteFooter({ locale }: { locale: Locale }) {
           </Marquee>
         </div>
       )}
-
+      */}
       {marqueeLogos.length > 0 && (
         <div className="border-b border-white/10 py-5">
           <div className="mx-auto mb-4 px-6">

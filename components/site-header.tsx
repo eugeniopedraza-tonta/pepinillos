@@ -38,15 +38,17 @@ export function SiteHeader({ locale, nav }: SiteHeaderProps) {
     >
       {/* Announcement bar */}
       <div className="bg-[var(--brand-olive)] px-6 py-2 text-center text-xs uppercase tracking-[0.22em] text-[var(--brand-brass)]">
-        <p className="mb-2">Envíos en México y atención directa por Whatsapp.</p>
-        <a
-          href={`https://wa.me/52${env.whatsappNumber}`}
-          target="_blank"
-          rel="noreferrer"
-          className="cursor-pointer font-bold"
-        >
-          +52 {env.whatsappNumber.replace(/(\d{3})(\d{3})(\d{4})/, "$1 $2 $3")}
-        </a>
+        <p className="mb-2 und">Envíos en México y atención directa por Whatsapp.</p>
+        <div className="flex justify-center underline hover:scale-105 transition-all duration-200">
+          <a
+            href={`https://wa.me/52${env.whatsappNumber}`}
+            target="_blank"
+            rel="noreferrer"
+            className="cursor-pointer font-bold"
+          >
+            +52 {env.whatsappNumber.replace(/(\d{2})(\d{4})(\d{4})/, "$1 $2 $3")}
+          </a>
+        </div>
       </div>
 
       <div className="mx-auto max-w-7xl px-6">

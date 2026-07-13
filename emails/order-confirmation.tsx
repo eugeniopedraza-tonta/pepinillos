@@ -28,6 +28,8 @@ export type OrderConfirmationEmailProps = {
     currency: string;
   }[];
   subtotalAmount: number;
+  shippingAmount: number;
+  totalAmount: number | null;
   currency: string;
   shippingAddress: {
     line1?: string | null;
@@ -65,6 +67,9 @@ const copy = {
     unitPrice: "Precio unit.",
     total: "Total",
     subtotal: "Subtotal",
+    shipping: "Envío",
+    free: "Gratis",
+    grandTotal: "Total",
     shipsTo: "Dirección de envío",
     contact: "Contacto",
     footer: "Herbert's · Hecho en México · Productos Gourmet",
@@ -80,6 +85,9 @@ const copy = {
     unitPrice: "Unit price",
     total: "Total",
     subtotal: "Subtotal",
+    shipping: "Shipping",
+    free: "Free",
+    grandTotal: "Total",
     shipsTo: "Shipping address",
     contact: "Contact",
     footer: "Herbert's · Made in Mexico · Gourmet Products",
@@ -94,6 +102,8 @@ export function OrderConfirmationEmail({
   orderId,
   items,
   subtotalAmount,
+  shippingAmount,
+  totalAmount,
   currency,
   shippingAddress,
   shippingName,
@@ -102,6 +112,7 @@ export function OrderConfirmationEmail({
 }: OrderConfirmationEmailProps) {
   const c = copy[locale];
   const shortId = orderId.slice(0, 8).toUpperCase();
+  const grandTotal = totalAmount ?? subtotalAmount + shippingAmount;
 
   return (
     <Html lang={locale}>
@@ -180,6 +191,28 @@ export function OrderConfirmationEmail({
                 <Text style={styles.subtotalValue}>
                   {fmt(subtotalAmount, currency)}
                 </Text>
+              </Column>
+            </Row>
+
+            <Row>
+              <Column style={{ width: "65%" }} />
+              <Column style={{ width: "17%" }}>
+                <Text style={styles.subtotalLabel}>{c.shipping}</Text>
+              </Column>
+              <Column style={{ width: "18%" }}>
+                <Text style={styles.subtotalValue}>
+                  {shippingAmount === 0 ? c.free : fmt(shippingAmount, currency)}
+                </Text>
+              </Column>
+            </Row>
+
+            <Row style={styles.subtotalRow}>
+              <Column style={{ width: "65%" }} />
+              <Column style={{ width: "17%" }}>
+                <Text style={styles.totalLabel}>{c.grandTotal}</Text>
+              </Column>
+              <Column style={{ width: "18%" }}>
+                <Text style={styles.totalValue}>{fmt(grandTotal, currency)}</Text>
               </Column>
             </Row>
           </Section>
@@ -377,6 +410,22 @@ const styles: Record<string, React.CSSProperties> = {
     fontSize: "15px",
     fontWeight: "700",
     margin: "12px 4px 0",
+    textAlign: "right",
+  },
+  totalLabel: {
+    color: OLIVE,
+    fontSize: "13px",
+    fontWeight: "700",
+    letterSpacing: "0.1em",
+    textTransform: "uppercase",
+    margin: "6px 6px 0",
+    textAlign: "right",
+  },
+  totalValue: {
+    color: OLIVE,
+    fontSize: "18px",
+    fontWeight: "700",
+    margin: "6px 4px 0",
     textAlign: "right",
   },
   addressLine: {
